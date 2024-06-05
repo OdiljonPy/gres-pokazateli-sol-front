@@ -24,7 +24,7 @@ const routes = [
     path: "/solar_system",
     name: "solar_system",
     component: () => import("@/pages/solar_system/SolarSystem.vue"),
-    meta: { layout: HomeLayout, roles: ["ADMIN"] },
+    meta: { layout: AuthLayout, roles: ["ADMIN"] },
   },
 ];
 const router = createRouter({
