@@ -6,30 +6,30 @@
         <div class="col-span-9">
           <div class="grid grid-cols-12 gap-3 items-center">
             <SButton class="col-span-4 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
           </div>
           <div class="grid grid-cols-12 gap-3 items-center mt-4">
             <SButton class="col-span-4 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Jenson button
+              Select button
             </SButton>
           </div>
         </div>
@@ -40,18 +40,30 @@
       <!--col-3-->
       <div class="grid grid-cols-12 gap-3 mt-3">
         <SButton class="col-span-3 h-16 w-full" variant="black">
-          Jenson button
+          Select button
         </SButton>
         <SButton class="col-span-3 h-16 w-full" variant="black">
-          Jenson button
+          Select button
         </SButton>
         <div class="col-span-6 grid grid-cols-12 gap-3">
           <SButton variant="black" class="col-span-3 w-full h-16"
             >Button</SButton
           >
           <div class="col-span-3 grid gap-3 grid-cols-2">
-            <SButton variant="green" class="h-16" custom-class="!text-[12px] !px-2  !leading-4">ФЭС </SButton>
-            <SButton variant="green" class="h-16 " custom-class="!text-[12px] !px-2  !leading-4">ФЭС ХВО</SButton>
+            <SButton
+              @click="$router.push('/solar_system')"
+              variant="green"
+              class="h-16"
+              custom-class="!text-[12px] !px-2  !leading-4"
+              >ФЭС
+            </SButton>
+            <SButton
+              @click="$router.push('/solar_system')"
+              variant="green"
+              class="h-16"
+              custom-class="!text-[10px] !px-1  !leading-3"
+              >ФЭС ХВО</SButton
+            >
           </div>
           <SButton variant="black" class="col-span-3 h-16 w-full"
             >Button</SButton
@@ -67,10 +79,22 @@
           >ТГ-{{ item }}</SButton
         >
       </div>
+
+      <div class="mt-10 px-20 flex flex-col gap-3">
+        <HomeInfo class="text-[#F20300]" unity="MВт" rate="2048" title="P" />
+        <HomeInfo class="text-[#17BB0E]" unity="%" rate="3.62" title="CH" />
+        <HomeInfo
+          class="text-[#FDFD06]"
+          unity="г/кВт*ч"
+          rate="141"
+          title="УРТ"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import ShadowButton from "@/components/shared/button/ShadowButton.vue";
 import SButton from "@/components/shared/button/SButton.vue";
+import HomeInfo from "@/components/pages/home/HomeInfo.vue";
 </script>

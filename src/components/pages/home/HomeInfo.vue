@@ -1,11 +1,19 @@
 <script setup lang="ts">
+interface Props {
+  title: string;
+  rate: number;
+  unity: string;
+}
 
+defineProps<Props>();
 </script>
 
 <template>
-  $END$
+  <div class="flex items-center gap-3 font-medium">
+    <p class="text-3xl">{{ title }}:</p>
+    <p class="text-5xl font-semibold mr-2 ml-1">{{ rate }}</p>
+    <p class="text-3xl">{{ unity }}</p>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

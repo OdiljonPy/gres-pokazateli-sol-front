@@ -141,7 +141,7 @@ const chartOptions2 = ref({
         <div class="w-full">
           <div class="flex gap-3">
             <div
-              class="basis-[60%] border-2 border-black p-3 grid grid-cols-2 gap-3"
+              class="basis-[60%] border-2 border-black p-3 grid grid-cols-2 gap-2"
             >
               <InfoCard
                 v-for="(item, idx) in 6"
