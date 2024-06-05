@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import InfoText from "@/components/pages/solar_system/InfoText.vue";
 import InfoCard from "@/components/pages/solar_system/InfoCard.vue";
+import ShadowButton from "@/components/shared/button/ShadowButton.vue";
+import SButton from "@/components/shared/button/SButton.vue";
 
 const series = ref([
   {
@@ -99,6 +101,42 @@ const chartOptions2 = ref({
 <template>
   <div class="my-4">
     <div class="container">
+      <div class="mb-3">
+        <div class="flex items-center gap-4">
+          <SButton variant="black" class="w-[300px]" @click="$router.push('/')">Menu</SButton>
+          <p class="text-3xl text-dark">"Sirdaryo IES"</p>
+        </div>
+      </div>
+      <div class="mb-4 border-2 border-black grid grid-cols-3 items-center">
+        <div class="flex px-4 justify-between">
+          <p class="text-lg flex items-center gap-4">
+            Суммарная мощность <span class="font-semibold text-3xl">P</span>
+          </p>
+          <p class="text-xl">
+            <span class="text-4xl font-semibold mr-1">12.5</span> kvW
+          </p>
+        </div>
+        <div class="px-4 py-3 border-x-2 border-black">
+          <div class="flex items-center justify-between">
+            <p class="text-xl font-medium">Нач. суток</p>
+            <p class="text-lg">
+              <span class="font-semibold text-2xl mr-1">17.4</span> kvW * h
+            </p>
+          </div>
+          <div class="flex items-center justify-between">
+            <p class="text-xl font-medium">Пред. сутки</p>
+            <p class="text-lg">
+              <span class="font-semibold text-2xl mr-1">0.0</span> kvW * h
+            </p>
+          </div>
+        </div>
+        <div class="px-4 flex justify-between">
+          <p class="text-xl font-medium">Нач. месяца</p>
+          <p class="text-lg">
+            <span class="font-semibold text-2xl mr-1">17.0</span> kvW * h
+          </p>
+        </div>
+      </div>
       <div class="flex gap-8 items-center">
         <div class="w-full">
           <div class="flex gap-3">
