@@ -32,5 +32,10 @@ export const useLoginStore = defineStore("login", {
           });
       });
     },
+    logout() {
+      sessionStorage.removeItem("token");
+      this.isLogin = false;
+      this.user = {};
+    },
   },
 });

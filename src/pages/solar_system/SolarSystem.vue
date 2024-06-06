@@ -47,6 +47,8 @@ const chartOptions = ref({
       "11:17",
       "13:17",
       "14:17",
+      "15:17",
+      "14:17",
     ],
   },
 });
@@ -103,7 +105,9 @@ const chartOptions2 = ref({
     <div class="container">
       <div class="mb-3">
         <div class="flex items-center gap-4">
-          <SButton variant="black" class="w-[300px]" @click="$router.push('/')">Menu</SButton>
+          <SButton variant="black" class="w-[300px]" @click="$router.push('/')"
+            >Menu</SButton
+          >
           <p class="text-3xl text-dark">"Sirdaryo IES"</p>
         </div>
       </div>

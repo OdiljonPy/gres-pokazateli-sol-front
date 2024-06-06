@@ -6,48 +6,52 @@
         <div class="col-span-9">
           <div class="grid grid-cols-12 gap-3 items-center">
             <SButton class="col-span-4 h-16" variant="black">
-              Select button
+              Мнемосхема
+              Выработка, СН, УРТ
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
-              Select button
+              Расход входящего газа
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Select button
+              Таблица отопление
+              PMT
             </SButton>
-            <SButton class="col-span-2 h-16" variant="black">
-              Select button
+            <SButton class="col-span-2 h-16" variant="black" custom-class="!leading-4 !text-[12px]">
+              Таблица отопление
+              ЛОГИКА СПТ
             </SButton>
           </div>
           <div class="grid grid-cols-12 gap-3 items-center mt-4">
             <SButton class="col-span-4 h-16" variant="black">
-              Select button
+              Технико-экономические показатели
+              Выработка, СН, УРТ, Выра бота
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
-              Select button
+              Параметры газа
             </SButton>
-            <SButton class="col-span-2 h-16" variant="black">
-              Select button
+            <SButton class="col-span-4 h-16" variant="black">
+              Таблица выработка, архивная
             </SButton>
-            <SButton class="col-span-2 h-16" variant="black">
-              Select button
-            </SButton>
+
           </div>
         </div>
         <div class="col-span-3">
-          <ShadowButton class="h-16 w-full">Chiqish</ShadowButton>
+          <ShadowButton class="h-16 w-full" @click="logout"
+            >Выход</ShadowButton
+          >
         </div>
       </div>
       <!--col-3-->
       <div class="grid grid-cols-12 gap-3 mt-3">
         <SButton class="col-span-3 h-16 w-full" variant="black">
-          Select button
+          Подпитка воды
         </SButton>
         <SButton class="col-span-3 h-16 w-full" variant="black">
-          Select button
+          Таблица текущих измерений по блокам
         </SButton>
         <div class="col-span-6 grid grid-cols-12 gap-3">
           <SButton variant="black" class="col-span-3 w-full h-16"
-            >Button</SButton
+            >Диагностика</SButton
           >
           <div class="col-span-3 grid gap-3 grid-cols-2">
             <SButton
@@ -66,10 +70,12 @@
             >
           </div>
           <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Button</SButton
+            >Таблица измерений
+            M3X-1</SButton
           >
           <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Button</SButton
+            >Тепловая схема
+            MSX-1</SButton
           >
         </div>
       </div>
@@ -97,4 +103,15 @@
 import ShadowButton from "@/components/shared/button/ShadowButton.vue";
 import SButton from "@/components/shared/button/SButton.vue";
 import HomeInfo from "@/components/pages/home/HomeInfo.vue";
+import { useLoginStore } from "@/store/auth";
+import { useRouter } from "vue-router";
+
+const authStore = useLoginStore();
+
+const router = useRouter();
+
+const logout = () => {
+  authStore.logout();
+  router.push("/login");
+};
 </script>

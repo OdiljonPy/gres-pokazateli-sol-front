@@ -32,7 +32,7 @@ const buttonStyle = computed(() => {
     case "light":
       return "bg-[#8E9DCC] hover:bg-[#49549D] ";
     case "black":
-      return "bg-[#2E3036] text-white rounded-[4px] border transition duration-300 border-[#ffffff26] hover:bg-[#66676B]";
+      return "bg-[#2E3036] text-white rounded-[4px] text-center !leading-[22px] !px-2  text-[14px] border transition duration-300 border-[#ffffff26] hover:bg-[#66676B]";
     case "light_blue":
       return "bg-indigo-600 hover:bg-main_color hover:text-white transition duration-300 text-white";
     case "green":
