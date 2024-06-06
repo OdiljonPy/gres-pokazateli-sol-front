@@ -6,25 +6,25 @@
         <div class="col-span-9">
           <div class="grid grid-cols-12 gap-3 items-center">
             <SButton class="col-span-4 h-16" variant="black">
-              Мнемосхема
-              Выработка, СН, УРТ
+              Мнемосхема Выработка, СН, УРТ
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
               Расход входящего газа
             </SButton>
             <SButton class="col-span-2 h-16" variant="black">
-              Таблица отопление
-              PMT
+              Таблица отопление PMT
             </SButton>
-            <SButton class="col-span-2 h-16" variant="black" custom-class="!leading-4 !text-[12px]">
-              Таблица отопление
-              ЛОГИКА СПТ
+            <SButton
+              class="col-span-2 h-16"
+              variant="black"
+              custom-class="!leading-4 !text-[12px]"
+            >
+              Таблица отопление ЛОГИКА СПТ
             </SButton>
           </div>
           <div class="grid grid-cols-12 gap-3 items-center mt-4">
             <SButton class="col-span-4 h-16" variant="black">
-              Технико-экономические показатели
-              Выработка, СН, УРТ, Выра бота
+              Технико-экономические показатели Выработка, СН, УРТ, Выра бота
             </SButton>
             <SButton class="col-span-4 h-16" variant="black">
               Параметры газа
@@ -32,13 +32,14 @@
             <SButton class="col-span-4 h-16" variant="black">
               Таблица выработка, архивная
             </SButton>
-
           </div>
         </div>
         <div class="col-span-3">
-          <ShadowButton class="h-16 w-full" @click="logout"
-            >Выход</ShadowButton
-          >
+          <ShadowButton class="h-16 w-full" @click="logout">Выход</ShadowButton>
+          <div class="mt-4 grid grid-cols-2 gap-6 items-center h-16">
+            <VueClock class="mx-auto" />
+            <VueDate class="mx-auto" />
+          </div>
         </div>
       </div>
       <!--col-3-->
@@ -70,12 +71,10 @@
             >
           </div>
           <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Таблица измерений
-            M3X-1</SButton
+            >Таблица измерений M3X-1</SButton
           >
           <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Тепловая схема
-            MSX-1</SButton
+            >Тепловая схема MSX-1</SButton
           >
         </div>
       </div>
@@ -105,6 +104,8 @@ import SButton from "@/components/shared/button/SButton.vue";
 import HomeInfo from "@/components/pages/home/HomeInfo.vue";
 import { useLoginStore } from "@/store/auth";
 import { useRouter } from "vue-router";
+import VueClock from "@/components/clock/VueClock.vue";
+import VueDate from "@/components/date/VueDate.vue";
 
 const authStore = useLoginStore();
 
