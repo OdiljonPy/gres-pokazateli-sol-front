@@ -2,8 +2,9 @@
 import { ref } from "vue";
 import InfoText from "@/components/pages/solar_system/InfoText.vue";
 import InfoCard from "@/components/pages/solar_system/InfoCard.vue";
-import ShadowButton from "@/components/shared/button/ShadowButton.vue";
 import SButton from "@/components/shared/button/SButton.vue";
+import VueClock from "@/components/clock/VueClock.vue";
+import VueDate from "@/components/date/VueDate.vue";
 
 const series = ref([
   {
@@ -103,12 +104,16 @@ const chartOptions2 = ref({
 <template>
   <div class="my-4">
     <div class="container">
-      <div class="mb-3">
+      <div class="mb-3 grid grid-cols-2 items-center">
         <div class="flex items-center gap-4">
           <SButton variant="black" class="w-[300px]" @click="$router.push('/')"
             >Menu</SButton
           >
           <p class="text-3xl text-dark">"Sirdaryo IES"</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <VueClock class="!text-dark !w-[120px]" />
+          <VueDate class="!text-dark" />
         </div>
       </div>
       <div class="mb-4 border-2 border-black grid grid-cols-3 items-center">
