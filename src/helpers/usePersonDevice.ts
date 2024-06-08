@@ -1,5 +1,5 @@
 let user = "";
-let userAgent = navigator.userAgent;
+const userAgent = navigator.userAgent;
 
 if (userAgent.match(/iPhone/i) || userAgent.match(/iPad/i)) {
   user = "iPhone";

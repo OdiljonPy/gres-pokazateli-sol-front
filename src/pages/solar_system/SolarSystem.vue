@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import InfoText from "@/components/pages/solar_system/InfoText.vue";
 import InfoCard from "@/components/pages/solar_system/InfoCard.vue";
 import SButton from "@/components/shared/button/SButton.vue";
 import VueClock from "@/components/clock/VueClock.vue";
 import VueDate from "@/components/date/VueDate.vue";
+import { useChartStore } from "@/store/solar_charts";
+import { useSolarInfoStore } from "@/store/solar_info";
+import formatDate from "@/helpers/format-date";
+
+const chartStore = useChartStore();
+const infoStore = useSolarInfoStore();
+
+const chart = ref();
+const chart1 = ref();
+const chart2 = ref();
 
 const series = ref([
   {
@@ -96,9 +106,107 @@ const chartOptions2 = ref({
       "11:17",
       "13:17",
       "14:17",
+      "16:17",
+      "18:17",
     ],
   },
 });
+
+const series3 = ref([
+  {
+    name: "Солнечная Nº1",
+    data: [31, 40, 28, 109, 100, 23, 40, 20, 30, 70, 40, 10],
+  },
+  {
+    name: "Солнечная Nº2",
+    data: [11, 32, 45, 52, 41, 20, 100, 80, 60, 30, 10, 70],
+  },
+]);
+const chartOptions3 = ref({
+  chart: {
+    height: 350,
+    type: "area",
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    curve: "smooth",
+  },
+  xaxis: {
+    type: "datetime",
+    categories: [
+      "2024-06-08T17:28:38.029993Z",
+      "2024-06-08T17:28:37.150767Z",
+      "2024-06-08T17:28:35.548735Z",
+      "2024-06-08T17:28:35.259309Z",
+      "2024-06-08T17:28:33.447971Z",
+      "2024-06-08T17:28:33.147468Z",
+      "2024-06-08T17:28:32.369093Z",
+      "2024-06-08T17:28:32.367031Z",
+      "2024-06-08T17:28:31.469284Z",
+      "2024-06-08T17:28:30.770053Z",
+      "2024-06-08T17:28:29.751479Z",
+      "2024-06-08T17:28:29.350668Z",
+    ],
+  },
+  tooltip: {
+    x: {
+      format: "dd/MM/yy HH:mm",
+    },
+  },
+});
+
+const solar1 = computed(() => chartStore.solar?.solar_1);
+const solar2 = computed(() => chartStore.solar?.solar_2);
+
+function updateChar() {
+  const dataSolar1 = solar1.value?.map((solar) => solar.P_total);
+  const dataSolar2 = solar2.value?.map((solar) => solar.P_total);
+
+  series3.value[0].data = dataSolar1;
+  series3.value[1].data = dataSolar2;
+
+  series2.value[0].data = dataSolar2;
+  series.value[0].data = dataSolar1;
+
+  const xaxisData = solar1.value?.map((solar) => solar.crated_at);
+
+  const xaxisDataFormat = solar1.value?.map((solar) =>
+    formatDate(solar.crated_at)
+  );
+
+  chart.value.updateOptions({
+    xaxis: {
+      categories: xaxisData,
+    },
+  });
+  chart1.value.updateOptions({
+    xaxis: {
+      categories: xaxisDataFormat,
+    },
+  });
+  chart2.value.updateOptions({
+    xaxis: {
+      categories: xaxisDataFormat,
+    },
+  });
+}
+
+onMounted(() => {
+  chartStore.fetchSolarChart();
+  infoStore.fetchSolarInfo().then(() => {
+    updateChar();
+  });
+});
+
+setInterval(() => {
+  infoStore.fetchSolarInfo();
+
+  chartStore.fetchSolarChart().then(() => {
+    updateChar();
+  });
+}, 2000);
 </script>
 
 <template>
@@ -177,7 +285,7 @@ const chartOptions2 = ref({
             <apexchart
               type="line"
               height="350"
-              ref="chart"
+              ref="chart1"
               :options="chartOptions"
               :series="series"
             ></apexchart>
@@ -213,12 +321,21 @@ const chartOptions2 = ref({
             <apexchart
               type="line"
               height="350"
-              ref="chart"
+              ref="chart2"
               :options="chartOptions2"
               :series="series2"
             ></apexchart>
           </div>
         </div>
+      </div>
+      <div id="chart">
+        <apexchart
+          ref="chart"
+          type="area"
+          height="350"
+          :options="chartOptions3"
+          :series="series3"
+        ></apexchart>
       </div>
     </div>
   </div>

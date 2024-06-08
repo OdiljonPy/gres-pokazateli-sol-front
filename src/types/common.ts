@@ -13,8 +13,3 @@ export interface ICommon<T> {
   data: T[];
 }
 
-export interface ILanguage {
-  uzb?: string;
-  en?: string;
-  ru?: string;
-}
