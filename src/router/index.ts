@@ -21,7 +21,7 @@ const routes = [
     meta: { layout: AuthLayout, roles: ["ADMIN"] },
   },
   {
-    path: "/solar_system",
+    path: "/solar_system/:id",
     name: "solar_system",
     component: () => import("@/pages/solar_system/SolarSystem.vue"),
     meta: { layout: AuthLayout, roles: ["ADMIN"] },

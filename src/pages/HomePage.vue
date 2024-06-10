@@ -56,14 +56,14 @@
           >
           <div class="col-span-3 grid gap-3 grid-cols-2">
             <SButton
-              @click="$router.push('/solar_system')"
+              @click="$router.push('/solar_system/1')"
               variant="green"
               class="h-16"
               custom-class="!text-[12px] !px-2  !leading-4"
               >ФЭС
             </SButton>
             <SButton
-              @click="$router.push('/solar_system')"
+              @click="$router.push('/solar_system/2')"
               variant="green"
               class="h-16"
               custom-class="!text-[10px] !px-1  !leading-3"

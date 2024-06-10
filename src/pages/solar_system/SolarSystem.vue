@@ -11,8 +11,10 @@ import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
 import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
+import { useRoute } from "vue-router";
 
 const toast = useToast();
+const route = useRoute();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
@@ -140,7 +142,7 @@ const chartOptions3 = ref({
     curve: "smooth",
   },
   xaxis: {
-    type: "datetime",
+    type: "string",
     categories: [
       "2024-06-08T17:28:38.029993Z",
       "2024-06-08T17:28:37.150767Z",
@@ -176,10 +178,12 @@ function updateChar() {
   series2.value[0].data = dataSolar2;
   series.value[0].data = dataSolar1;
 
-  const xaxisData = solar1.value?.map((solar) => solar.crated_at);
+  const xaxisData = solar1.value?.map(
+    (solar) => formatDate(solar.crated_at)?.hours
+  );
 
-  const xaxisDataFormat = solar1.value?.map((solar) =>
-    formatDate(solar.crated_at)
+  const xaxisDataFormat = solar1.value?.map(
+    (solar) => formatDate(solar.crated_at)?.minutes
   );
 
   chart.value.updateOptions({
@@ -202,25 +206,26 @@ function updateChar() {
 onMounted(() => {
   loadingInfo.value = true;
   chartStore.fetchSolarChart();
-  infoStore.fetchSolarInfo().then(() => {
+  infoStore.fetchSolarInfo(+route.params.id).then(() => {
     updateChar();
     loadingInfo.value;
   });
 
   if (chartStore.error || infoStore.error) {
+    console.log("run error");
     toast.error("Xatolik yuz berdi");
   }
 });
 
 setInterval(() => {
-  if (!infoStore.loading) infoStore.fetchSolarInfo();
+  if (!infoStore.loading) infoStore.fetchSolarInfo(+route.params.id);
 
   if (!chartStore.loading) {
     chartStore.fetchSolarChart().then(() => {
       updateChar();
     });
   }
-}, 2000);
+}, 5000);
 </script>
 
 <template>

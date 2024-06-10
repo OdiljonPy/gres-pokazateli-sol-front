@@ -9,12 +9,12 @@ export const useSolarInfoStore = defineStore("solar_info", {
     error: false,
   }),
   actions: {
-    fetchSolarInfo() {
+    fetchSolarInfo(page: number) {
       return new Promise((resolve, reject) => {
         this.loading = true;
         this.error = false;
         axios
-          .get<ISolarInfoCommon>("/get_updates/")
+          .get<ISolarInfoCommon>(`/get_updates/?page=${page}`)
           .then((res) => {
             this.info = res.data?.response;
             resolve(res.data);
