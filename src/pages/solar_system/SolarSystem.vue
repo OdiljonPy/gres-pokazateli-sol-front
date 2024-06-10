@@ -9,6 +9,8 @@ import { useChartStore } from "@/store/solar_charts";
 import { useSolarInfoStore } from "@/store/solar_info";
 import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
+import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
+import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 
 const toast = useToast();
 
@@ -234,33 +236,49 @@ setInterval(() => {
         </div>
       </div>
       <div class="mb-4 border-2 border-black grid grid-cols-3 items-center">
-        <div class="flex px-4 justify-between">
+        <div class="flex items-center gap-2 px-4 justify-between">
           <p class="text-lg flex items-center gap-4">
             Суммарная мощность <span class="font-semibold text-3xl">P</span>
           </p>
-          <p class="text-xl">
-            <span class="text-4xl font-semibold mr-1">12.5</span> kvW
-          </p>
+          <div>
+            <PreLoader
+              v-if="infoStore.error"
+              :loading="true"
+              preloader-class="!w-[100px]"
+            />
+            <div v-else>
+              <span class="text-4xl font-semibold mr-1">{{
+                infoStore.info.data?.solar_1?.P_total +
+                infoStore.info.data?.solar_2?.P_total
+                  ? (
+                      infoStore.info.data?.solar_1?.P_total +
+                      infoStore.info.data?.solar_2?.P_total
+                    ).toFixed(2)
+                  : "0.0"
+              }}</span>
+              <span class="text-xl">kvW</span>
+            </div>
+          </div>
         </div>
         <div class="px-4 py-3 border-x-2 border-black">
-          <div class="flex items-center justify-between">
-            <p class="text-xl font-medium">Нач. суток</p>
-            <p class="text-lg">
-              <span class="font-semibold text-2xl mr-1">17.4</span> kvW * h
-            </p>
-          </div>
-          <div class="flex items-center justify-between">
-            <p class="text-xl font-medium">Пред. сутки</p>
-            <p class="text-lg">
-              <span class="font-semibold text-2xl mr-1">0.0</span> kvW * h
-            </p>
-          </div>
+          <PowerInfo
+            title="Пред. суток"
+            :value="17.4"
+            :error="infoStore.error"
+          />
+          <PowerInfo title="Пред. сутки" :value="0" :error="infoStore.error" />
         </div>
-        <div class="px-4 flex justify-between">
-          <p class="text-xl font-medium">Нач. месяца</p>
-          <p class="text-lg">
-            <span class="font-semibold text-2xl mr-1">17.0</span> kvW * h
-          </p>
+        <div>
+          <PowerInfo
+            title="Нач. месяца"
+            :value="infoStore.info?.total_P_month"
+            :error="infoStore.error"
+          />
+          <PowerInfo
+            title="Нач. годы"
+            :value="infoStore.info?.total_P_year"
+            :error="infoStore.error"
+          />
         </div>
       </div>
       <pre>{{ infoStore.info.data?.solar_1 }}</pre>
