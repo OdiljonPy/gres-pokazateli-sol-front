@@ -16,6 +16,7 @@ const toast = useToast();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
+const loadingInfo = ref(false);
 
 const chart = ref();
 const chart1 = ref();
@@ -199,9 +200,11 @@ function updateChar() {
 }
 
 onMounted(() => {
+  loadingInfo.value = true;
   chartStore.fetchSolarChart();
   infoStore.fetchSolarInfo().then(() => {
     updateChar();
+    loadingInfo.value;
   });
 
   if (chartStore.error || infoStore.error) {
@@ -281,7 +284,6 @@ setInterval(() => {
           />
         </div>
       </div>
-      <pre>{{ infoStore.info.data?.solar_1 }}</pre>
       <div class="flex gap-8 items-center">
         <div class="w-full">
           <div class="flex gap-3">
@@ -299,6 +301,7 @@ setInterval(() => {
               <InfoText
                 title="P"
                 :rate="infoStore.info.data?.solar_1?.P_total"
+                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText title="P1" rate="5.2" unity="kvW" />
@@ -336,7 +339,12 @@ setInterval(() => {
               />
             </div>
             <div class="basis-[38%] flex flex-col gap-[1px]">
-              <InfoText title="P" rate="5.2" unity="kvW" />
+              <InfoText
+                title="P"
+                :rate="infoStore.info.data?.solar_2?.P_total"
+                :error="infoStore.error"
+                unity="kvW"
+              />
               <InfoText title="P1" rate="5.2" unity="kvW" />
               <InfoText title="P2" rate="5.2" unity="kvW" />
               <InfoText title="P3" rate="5.2" unity="kvW" />
