@@ -11,6 +11,7 @@ export const useLoginStore = defineStore("login", {
   }),
   actions: {
     login(user: { login: string; password: string }) {
+      console.log(user)
       this.user = User;
       this.isLogin = true;
       sessionStorage.setItem("token", User.phone);

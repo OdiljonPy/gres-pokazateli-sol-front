@@ -8,6 +8,9 @@ import VueDate from "@/components/date/VueDate.vue";
 import { useChartStore } from "@/store/solar_charts";
 import { useSolarInfoStore } from "@/store/solar_info";
 import formatDate from "@/helpers/format-date";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
@@ -198,14 +201,20 @@ onMounted(() => {
   infoStore.fetchSolarInfo().then(() => {
     updateChar();
   });
+
+  if (chartStore.error || infoStore.error) {
+    toast.error("Xatolik yuz berdi");
+  }
 });
 
 setInterval(() => {
-  infoStore.fetchSolarInfo();
+  if (!infoStore.loading) infoStore.fetchSolarInfo();
 
-  chartStore.fetchSolarChart().then(() => {
-    updateChar();
-  });
+  if (!chartStore.loading) {
+    chartStore.fetchSolarChart().then(() => {
+      updateChar();
+    });
+  }
 }, 2000);
 </script>
 
@@ -269,7 +278,11 @@ setInterval(() => {
               />
             </div>
             <div class="basis-[38%] flex flex-col gap-[1px]">
-              <InfoText title="P" :rate="infoStore.info.data?.solar_1?.P_total" unity="kvW" />
+              <InfoText
+                title="P"
+                :rate="infoStore.info.data?.solar_1?.P_total"
+                unity="kvW"
+              />
               <InfoText title="P1" rate="5.2" unity="kvW" />
               <InfoText title="P2" rate="5.2" unity="kvW" />
               <InfoText title="P3" rate="5.2" unity="kvW" />
