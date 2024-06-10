@@ -1,11 +1,11 @@
 <template>
-  <div
+  <button
     class="cursor-pointer select-none flex justify-center text-sm ms:text-base items-center py-[10px] px-[18px] ms:px-4 rounded-xl transition duration-300"
     :class="[customClass, buttonStyle]"
   >
     <slot></slot>
     <slot name="pre"></slot>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">

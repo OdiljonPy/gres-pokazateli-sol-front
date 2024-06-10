@@ -7,26 +7,17 @@
           <label
             for="phone"
             class="mb-2 text-base font-medium transition duration-300"
-            :class="v$.phone.$error ? 'text-[red]' : ''"
-            >Telefon raqam</label
+            :class="v$.login.$error ? 'text-[red]' : ''"
+            >Login</label
           >
           <SInput
-            placeholder="(00) 000-00-00"
+            placeholder="Login"
             type="phone"
-            v-model="state.phone"
-            :error="v$.phone.$error"
+            v-model="state.login"
+            :error="v$.login.$error"
             customClass="!p-2 bg-white"
             class="w-full"
-            v-maska="'(##) ###-##-##'"
           >
-            <template #prefix>
-              <span
-                class="font-medium text-base mr-2"
-                :class="v$.phone.$error ? 'text-[red]' : ''"
-              >
-                +998
-              </span>
-            </template>
           </SInput>
         </div>
 
@@ -72,14 +63,14 @@ const loginStore = useLoginStore();
 
 const state = reactive({
   password: "",
-  phone: "",
+  login: "",
 });
 const rules = computed(() => {
   return {
     password: {
       required,
     },
-    phone: { required },
+    login: { required },
   };
 });
 const v$ = useVuelidate(rules, state);
@@ -87,11 +78,8 @@ const loading = ref(false);
 const formLoginData = () => {
   v$.value.$validate();
   if (!v$.value.$error) {
-    const phone =
-      "+998" +
-      state.phone.replaceAll("-", "").replace("(", "").replace(") ", "");
     const option = {
-      phone: phone,
+      login: state.login,
       password: state.password,
     };
     loginStore.login(option);

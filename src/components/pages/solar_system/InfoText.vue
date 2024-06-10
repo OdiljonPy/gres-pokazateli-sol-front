@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   title: string;
-  rate: number;
+  rate?: number;
   unity: string;
 }
 

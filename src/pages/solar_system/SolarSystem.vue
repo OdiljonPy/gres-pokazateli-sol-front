@@ -254,6 +254,7 @@ setInterval(() => {
           </p>
         </div>
       </div>
+      <pre>{{ infoStore.info.data?.solar_1 }}</pre>
       <div class="flex gap-8 items-center">
         <div class="w-full">
           <div class="flex gap-3">
@@ -268,7 +269,7 @@ setInterval(() => {
               />
             </div>
             <div class="basis-[38%] flex flex-col gap-[1px]">
-              <InfoText title="P" rate="5.2" unity="kvW" />
+              <InfoText title="P" :rate="infoStore.info.data?.solar_1?.P_total" unity="kvW" />
               <InfoText title="P1" rate="5.2" unity="kvW" />
               <InfoText title="P2" rate="5.2" unity="kvW" />
               <InfoText title="P3" rate="5.2" unity="kvW" />

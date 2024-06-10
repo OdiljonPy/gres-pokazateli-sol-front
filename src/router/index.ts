@@ -18,7 +18,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/pages/auth/LoginPage.vue"),
-    meta: { layout: AuthLayout },
+    meta: { layout: AuthLayout, roles: ["ADMIN"] },
   },
   {
     path: "/solar_system",

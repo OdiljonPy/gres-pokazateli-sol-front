@@ -1,4 +1,4 @@
 export const User = {
-  phone: "+998945360998",
+  phone: "admin",
   password: "admin123",
 };
