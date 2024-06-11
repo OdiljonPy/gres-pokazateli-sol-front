@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import $axios from "@/plugins/axios";
 import router from "@/router";
+import { ILoginResponse } from "@/types/auth";
 
 const toast = useToast();
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
-    user: {},
     isLogin: !!sessionStorage.getItem("token"),
     loading: false,
   }),
@@ -16,19 +16,21 @@ export const useLoginStore = defineStore("login", {
       return new Promise((resolve, reject) => {
         this.loading = true;
         $axios
-          .post("/login/", { username: user.login, password: user.password })
+          .post<ILoginResponse>("/login/", {
+            username: user.login,
+            password: user.password,
+          })
           .then((res) => {
             console.log(res.data, "response");
             if (res.data.ok) {
-              this.user = res.data.result.access_token;
               this.isLogin = true;
-              sessionStorage.setItem("token", res.data.result.access_token);
+              sessionStorage.setItem("token", res.data?.result?.access_token);
               sessionStorage.setItem(
                 "refresh_token",
-                res.data.result.refresh_token
+                res.data?.result?.refresh_token
               );
               toast.success("Tizimga muvaffaqiyatli kirdingiz");
-              router.push("/")
+              router.push("/");
             }
             resolve(res.data);
           })
@@ -45,7 +47,6 @@ export const useLoginStore = defineStore("login", {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refresh_token");
       this.isLogin = false;
-      this.user = {};
     },
   },
 });
