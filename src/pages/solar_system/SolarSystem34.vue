@@ -248,6 +248,12 @@ setInterval(() => {
     });
   }
 }, 5000);
+
+setInterval(() => {
+  chartDayStore.fetchSolarDay(2).then(() => {
+    updateDayChart();
+  });
+}, 6 * 24 * 60 * 1000);
 </script>
 
 <template>
@@ -353,7 +359,8 @@ setInterval(() => {
               <p>
                 Max :
                 {{
-                  infoStore.info?.max?.solar_3?.[0]?.P_total?.toFixed(2) || "0.0"
+                  infoStore.info?.max?.solar_3?.[0]?.P_total?.toFixed(2) ||
+                  "0.0"
                 }}
                 kvW
               </p>
@@ -404,7 +411,8 @@ setInterval(() => {
               <p>
                 Max :
                 {{
-                  infoStore.info?.max?.solar_4?.[0]?.P_total?.toFixed(2) || "0.0"
+                  infoStore.info?.max?.solar_4?.[0]?.P_total?.toFixed(2) ||
+                  "0.0"
                 }}
                 kvW
               </p>
