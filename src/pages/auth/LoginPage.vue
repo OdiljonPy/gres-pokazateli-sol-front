@@ -42,7 +42,7 @@
           variant="blue"
           class="w-full !rounded-0 mt-5"
           @click.prevent="formLoginData"
-          :loading="loading"
+          :loading="loginStore.loading"
           >Kirish</SButton
         >
       </form>

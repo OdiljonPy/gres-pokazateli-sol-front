@@ -28,7 +28,6 @@ $axios.interceptors.response.use(
       sessionStorage.removeItem("refresh_token");
       router.push("/login");
     }
-    console.log(error.response.status === 401, "axios response");
   }
 );
 

@@ -101,6 +101,7 @@
         />
       </div>
     </div>
+    <BlockLoader v-if="loadingInfo" />
   </div>
 </template>
 <script setup lang="ts">
@@ -114,6 +115,7 @@ import VueDate from "@/components/date/VueDate.vue";
 import { onMounted, ref } from "vue";
 import { useSolarInfoStore } from "@/store/solar_info";
 import { useToast } from "vue-toastification";
+import BlockLoader from "@/components/block_loader/BlockLoader.vue";
 
 const toast = useToast();
 
@@ -128,14 +130,14 @@ const logout = () => {
   router.push("/login");
 };
 
-onMounted(() => {
+onMounted(async () => {
   loadingInfo.value = true;
-  infoStore.fetchSolarInfo(1).then(() => {
-    loadingInfo.value;
-  });
-
-  if (infoStore.error) {
+  try {
+    await infoStore.fetchSolarInfo(1);
+  } catch (err) {
     toast.error("Xatolik yuz berdi");
+  } finally {
+    loadingInfo.value = false;
   }
 });
 </script>
