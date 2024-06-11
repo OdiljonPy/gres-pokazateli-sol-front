@@ -13,6 +13,7 @@ import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useRoute } from "vue-router";
 import { useChartDay } from "@/store/char_day";
+import BlockLoader from "@/components/block_loader/BlockLoader.vue";
 
 const toast = useToast();
 const route = useRoute();
@@ -221,21 +222,21 @@ function updateMergeChart() {
   chart?.value?.render();
 }
 
-onMounted(() => {
+onMounted(async () => {
   loadingInfo.value = true;
+  try {
+    await chartStore.fetchSolarChart(2);
+    infoStore.fetchSolarInfo(2).then(() => {
+      updateMergeChart();
+    });
 
-  chartStore.fetchSolarChart(2);
-  infoStore.fetchSolarInfo(2).then(() => {
-    updateMergeChart();
-    loadingInfo.value;
-  });
-
-  chartDayStore.fetchSolarDay(2).then(() => {
-    updateDayChart();
-  });
-
-  if (chartStore.error || infoStore.error) {
+    chartDayStore.fetchSolarDay(2).then(() => {
+      updateDayChart();
+    });
+  } catch (err) {
     toast.error("Xatolik yuz berdi");
+  } finally {
+    loadingInfo.value = false;
   }
 });
 
@@ -437,6 +438,7 @@ setInterval(() => {
         ></apexchart>
       </div>
     </div>
+    <BlockLoader v-if="loadingInfo" />
   </div>
 </template>
 
