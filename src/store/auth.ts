@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
-import axios from "@/plugins/axios";
-import { User } from "@/constant/user";
+import { useToast } from "vue-toastification";
+import $axios from "@/plugins/axios";
 import router from "@/router";
+
+const toast = useToast();
 
 export const useLoginStore = defineStore("login", {
   state: () => ({
@@ -11,34 +13,37 @@ export const useLoginStore = defineStore("login", {
   }),
   actions: {
     login(user: { login: string; password: string }) {
-      console.log(user)
-      this.user = User;
-      this.isLogin = true;
-      sessionStorage.setItem("token", User.phone);
-      router.push("/").then((r) => true);
-      // return new Promise((resolve, reject) => {
-      //   this.loading = true;
-      //   axios
-      //     .get("/login")
-      //     .then((res) => {
-      //       if (user.phone == User.phone && user.password == User.password) {
-      //         this.user = User;
-      //         this.isLogin = true;
-      //         sessionStorage.setItem("token", User.phone);
-      //         router.push("/").then((r) => true);
-      //       }
-      //       resolve(res.data);
-      //     })
-      //     .catch((err) => {
-      //       reject(err);
-      //     })
-      //     .finally(() => {
-      //       this.loading = false;
-      //     });
-      // });
+      return new Promise((resolve, reject) => {
+        this.loading = true;
+        $axios
+          .post("/login/", { username: user.login, password: user.password })
+          .then((res) => {
+            console.log(res.data, "response");
+            if (res.data.ok) {
+              this.user = res.data.result.access_token;
+              this.isLogin = true;
+              sessionStorage.setItem("token", res.data.result.access_token);
+              sessionStorage.setItem(
+                "refresh_token",
+                res.data.result.refresh_token
+              );
+              toast.success("Tizimga muvaffaqiyatli kirdingiz");
+              router.push("/")
+            }
+            resolve(res.data);
+          })
+          .catch((err) => {
+            toast.error("Login yoki parol xato");
+            reject(err);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      });
     },
     logout() {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("refresh_token");
       this.isLogin = false;
       this.user = {};
     },

@@ -86,7 +86,12 @@
       </div>
 
       <div class="mt-10 px-20 flex flex-col gap-3">
-        <HomeInfo class="text-[#F20300]" unity="MВт" rate="2048" title="P" />
+        <HomeInfo
+          class="text-[#F20300]"
+          unity="MВт"
+          :rate="infoStore?.info?.total_P_month"
+          title="P"
+        />
         <HomeInfo class="text-[#17BB0E]" unity="%" rate="3.62" title="CH" />
         <HomeInfo
           class="text-[#FDFD06]"
@@ -106,7 +111,14 @@ import { useLoginStore } from "@/store/auth";
 import { useRouter } from "vue-router";
 import VueClock from "@/components/clock/VueClock.vue";
 import VueDate from "@/components/date/VueDate.vue";
+import { onMounted, ref } from "vue";
+import { useSolarInfoStore } from "@/store/solar_info";
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
+
+const infoStore = useSolarInfoStore();
+const loadingInfo = ref(false);
 const authStore = useLoginStore();
 
 const router = useRouter();
@@ -115,4 +127,15 @@ const logout = () => {
   authStore.logout();
   router.push("/login");
 };
+
+onMounted(() => {
+  loadingInfo.value = true;
+  infoStore.fetchSolarInfo(1).then(() => {
+    loadingInfo.value;
+  });
+
+  if (infoStore.error) {
+    toast.error("Xatolik yuz berdi");
+  }
+});
 </script>

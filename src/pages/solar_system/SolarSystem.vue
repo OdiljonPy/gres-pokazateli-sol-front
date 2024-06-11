@@ -331,7 +331,7 @@ setInterval(() => {
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
               <p>
                 Max :
-                {{ infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) }} kvW
+                {{ infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) || '0.0' }} kvW
               </p>
             </div>
             <apexchart
@@ -379,7 +379,7 @@ setInterval(() => {
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
               <p>
                 Max :
-                {{ infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) }} kvW
+                {{ infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) || '0.0' }} kvW
               </p>
             </div>
             <apexchart
