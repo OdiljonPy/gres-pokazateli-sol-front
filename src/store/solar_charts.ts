@@ -9,12 +9,12 @@ export const useChartStore = defineStore("solar_chart", {
     error: false,
   }),
   actions: {
-    fetchSolarChart() {
+    fetchSolarChart(page:number) {
       return new Promise((resolve, reject) => {
         this.loading = true;
         this.error = false;
         axios
-          .get<IChartSolarCommon>("/solar_day/")
+          .get<IChartSolarCommon>(`/solar_day/?page=${page}&page_size=2`)
           .then((res) => {
             this.solar = res.data?.response;
             resolve(res.data);

@@ -165,13 +165,12 @@ const chartOptions3 = ref({
   },
 });
 
-const solar1 = computed(() => chartStore.solar?.solar_1);
-const solar2 = computed(() => chartStore.solar?.solar_2);
+const solar1 = computed(() => chartStore.solar?.solar_3);
+const solar2 = computed(() => chartStore.solar?.solar_4);
 
 function updateChar() {
   const dataSolar1 = solar1.value?.map((solar) => solar.P_total);
   const dataSolar2 = solar2.value?.map((solar) => solar.P_total);
-
 
   series3.value[0].data = dataSolar1;
   series3.value[1].data = dataSolar2;
@@ -208,8 +207,8 @@ function updateChar() {
 
 onMounted(() => {
   loadingInfo.value = true;
-  chartStore.fetchSolarChart(1);
-  infoStore.fetchSolarInfo(1).then(() => {
+  chartStore.fetchSolarChart(2);
+  infoStore.fetchSolarInfo(2).then(() => {
     updateChar();
     loadingInfo.value;
   });
@@ -220,10 +219,10 @@ onMounted(() => {
 });
 
 setInterval(() => {
-  if (!infoStore.loading) infoStore.fetchSolarInfo(1);
+  if (!infoStore.loading) infoStore.fetchSolarInfo(2);
 
   if (!chartStore.loading) {
-    chartStore.fetchSolarChart(1).then(() => {
+    chartStore.fetchSolarChart(2).then(() => {
       updateChar();
     });
   }
@@ -258,11 +257,11 @@ setInterval(() => {
             />
             <div v-else>
               <span class="text-4xl font-semibold mr-1">{{
-                infoStore.info.data?.solar_1?.P_total +
-                infoStore.info.data?.solar_2?.P_total
+                infoStore.info.data?.solar_3?.P_total +
+                infoStore.info.data?.solar_4?.P_total
                   ? (
-                      infoStore.info.data?.solar_1?.P_total +
-                      infoStore.info.data?.solar_2?.P_total
+                      infoStore.info.data?.solar_3?.P_total +
+                      infoStore.info.data?.solar_4?.P_total
                     ).toFixed(2)
                   : "0.0"
               }}</span>
@@ -311,7 +310,7 @@ setInterval(() => {
             <div class="basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
-                :rate="infoStore.info.data?.solar_1?.P_total"
+                :rate="infoStore.info.data?.solar_3?.P_total"
                 :error="infoStore.error"
                 unity="kvW"
               />
@@ -356,7 +355,7 @@ setInterval(() => {
             <div class="basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
-                :rate="infoStore.info.data?.solar_2?.P_total"
+                :rate="infoStore.info.data?.solar_4?.P_total"
                 :error="infoStore.error"
                 unity="kvW"
               />
