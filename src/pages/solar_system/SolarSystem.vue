@@ -172,7 +172,6 @@ function updateChar() {
   const dataSolar1 = solar1.value?.map((solar) => solar.P_total);
   const dataSolar2 = solar2.value?.map((solar) => solar.P_total);
 
-
   series3.value[0].data = dataSolar1;
   series3.value[1].data = dataSolar2;
 
@@ -330,7 +329,10 @@ setInterval(() => {
           <div class="mt-8" id="chart">
             <div class="flex items-center gap-2 ml-2">
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
-              <p>Max : 12000 kvW</p>
+              <p>
+                Max :
+                {{ infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) }} kvW
+              </p>
             </div>
             <apexchart
               type="line"
@@ -375,7 +377,10 @@ setInterval(() => {
           <div class="mt-8" id="chart">
             <div class="flex items-center gap-2 ml-2">
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
-              <p>Max : 12000 kvW</p>
+              <p>
+                Max :
+                {{ infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) }} kvW
+              </p>
             </div>
             <apexchart
               type="line"
