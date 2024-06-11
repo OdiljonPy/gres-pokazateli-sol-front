@@ -353,7 +353,7 @@ setInterval(() => {
               <p>
                 Max :
                 {{
-                  infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) || "0.0"
+                  infoStore.info?.max?.solar_1?.[0]?.P_total?.toFixed(2) || "0.0"
                 }}
                 kvW
               </p>
@@ -404,7 +404,7 @@ setInterval(() => {
               <p>
                 Max :
                 {{
-                  infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) || "0.0"
+                  infoStore.info?.max?.solar_2?.[0]?.P_total?.toFixed(2) || "0.0"
                 }}
                 kvW
               </p>
