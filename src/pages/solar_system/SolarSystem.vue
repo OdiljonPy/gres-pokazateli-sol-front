@@ -12,12 +12,14 @@ import { useToast } from "vue-toastification";
 import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useRoute } from "vue-router";
+import { useChartDay } from "@/store/char_day";
 
 const toast = useToast();
 const route = useRoute();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
+const chartDayStore = useChartDay();
 const loadingInfo = ref(false);
 
 const chart = ref();
@@ -168,22 +170,47 @@ const chartOptions3 = ref({
 const solar1 = computed(() => chartStore.solar?.solar_1);
 const solar2 = computed(() => chartStore.solar?.solar_2);
 
-function updateChar() {
+const chartDaySolar1 = computed(() => chartDayStore.cords?.solar_1);
+const chartDaySolar2 = computed(() => chartDayStore.cords?.solar_2);
+
+function updateDayChart() {
+  const dataSolarDay1 = chartDaySolar1.value?.map((solar) => solar.value);
+  const dataSolarDay2 = chartDaySolar2.value?.map((solar) => solar.value);
+
+  series2.value[0].data = dataSolarDay1;
+  series.value[0].data = dataSolarDay2;
+
+  const xaxisDataSolar1 = chartDaySolar1.value?.map(
+    (solar) => formatDate(solar.created_at).hours
+  );
+
+  const xaxisDataSolar2 = chartDaySolar2.value?.map(
+    (solar) => formatDate(solar.created_at).hours
+  );
+
+  chart1.value?.updateOptions({
+    xaxis: {
+      categories: xaxisDataSolar1,
+    },
+  });
+  chart2.value?.updateOptions({
+    xaxis: {
+      categories: xaxisDataSolar2,
+    },
+  });
+  chart1.value?.render();
+  chart2.value?.render();
+}
+
+function updateMergeChart() {
   const dataSolar1 = solar1.value?.map((solar) => solar.P_total);
   const dataSolar2 = solar2.value?.map((solar) => solar.P_total);
 
   series3.value[0].data = dataSolar1;
   series3.value[1].data = dataSolar2;
 
-  series2.value[0].data = dataSolar2;
-  series.value[0].data = dataSolar1;
-
   const xaxisData = solar1.value?.map(
     (solar) => formatDate(solar.crated_at).hours
-  );
-
-  const xaxisDataFormat = solar1.value?.map(
-    (solar) => formatDate(solar.crated_at).minutes
   );
 
   chart.value?.updateOptions({
@@ -192,25 +219,19 @@ function updateChar() {
     },
   });
   chart.value?.render();
-
-  chart1.value?.updateOptions({
-    xaxis: {
-      categories: xaxisDataFormat,
-    },
-  });
-  chart2.value?.updateOptions({
-    xaxis: {
-      categories: xaxisDataFormat,
-    },
-  });
 }
 
 onMounted(() => {
   loadingInfo.value = true;
+
   chartStore.fetchSolarChart(1);
   infoStore.fetchSolarInfo(1).then(() => {
-    updateChar();
+    updateMergeChart();
     loadingInfo.value;
+  });
+
+  chartDayStore.fetchSolarDay(1).then(() => {
+    updateDayChart();
   });
 
   if (chartStore.error || infoStore.error) {
@@ -223,7 +244,7 @@ setInterval(() => {
 
   if (!chartStore.loading) {
     chartStore.fetchSolarChart(1).then(() => {
-      updateChar();
+      updateMergeChart();
     });
   }
 }, 5000);
@@ -331,7 +352,10 @@ setInterval(() => {
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
               <p>
                 Max :
-                {{ infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) || '0.0' }} kvW
+                {{
+                  infoStore.info?.max?.solar_1[0]?.P_total?.toFixed(2) || "0.0"
+                }}
+                kvW
               </p>
             </div>
             <apexchart
@@ -379,7 +403,10 @@ setInterval(() => {
               <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
               <p>
                 Max :
-                {{ infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) || '0.0' }} kvW
+                {{
+                  infoStore.info?.max?.solar_2[0]?.P_total?.toFixed(2) || "0.0"
+                }}
+                kvW
               </p>
             </div>
             <apexchart

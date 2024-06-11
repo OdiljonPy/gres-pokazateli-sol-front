@@ -23,7 +23,7 @@ $axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) {
+    if (error?.request?.status === 401) {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refresh_token");
       router.push("/login");
