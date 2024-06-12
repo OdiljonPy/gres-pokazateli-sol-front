@@ -151,6 +151,6 @@ model-viewer {
 .leaflet-popup-tip-container {
   display: none;
 }
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   padding: 0 !important;
 }

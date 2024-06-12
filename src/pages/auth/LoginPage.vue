@@ -74,7 +74,6 @@ const rules = computed(() => {
   };
 });
 const v$ = useVuelidate(rules, state);
-const loading = ref(false);
 const formLoginData = () => {
   v$.value.$validate();
   if (!v$.value.$error) {

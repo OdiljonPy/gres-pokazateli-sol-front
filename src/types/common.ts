@@ -12,4 +12,3 @@ export interface ICommon<T> {
   total: number;
   data: T[];
 }
-
