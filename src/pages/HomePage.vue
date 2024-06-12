@@ -4,39 +4,44 @@
       <!--      col-1-->
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-9">
-          <div class="grid grid-cols-12 gap-3 items-center">
-            <SButton class="col-span-4 h-16" variant="black">
+          <div class="flex flex-wrap gap-3 items-center">
+            <SButton class="grow-[2] w-full basis-[250px] h-16" variant="black">
               Мнемосхема Выработка, СН, УРТ
             </SButton>
-            <SButton class="col-span-4 h-16" variant="black">
+            <SButton class="grow-[2] w-full basis-[250px] h-16" variant="black">
               Расход входящего газа
             </SButton>
-            <SButton class="col-span-2 h-16" variant="black">
+            <SButton class="grow w-full basis-[180px] h-16" variant="black">
               Таблица отопление PMT
             </SButton>
             <SButton
-              class="col-span-2 h-16"
+              class="grow w-full basis-[180px] h-16"
               variant="black"
               custom-class="!leading-4 !text-[12px]"
             >
               Таблица отопление ЛОГИКА СПТ
             </SButton>
           </div>
-          <div class="grid grid-cols-12 gap-3 items-center mt-4">
-            <SButton class="col-span-4 h-16" variant="black">
+          <div class="flex flex-wrap gap-3 items-center mt-4">
+            <SButton class="grow-[2] w-full basis-[250px] h-16" variant="black">
               Технико-экономические показатели Выработка, СН, УРТ, Выра бота
             </SButton>
-            <SButton class="col-span-4 h-16" variant="black">
+            <SButton class="w-full grow basis-[100px] h-16" variant="black">
+              Изменения Плана </SButton
+            ><SButton
+              class="grow-[2] w-full basis-[250px] h-16"
+              variant="black"
+            >
               Параметры газа
             </SButton>
-            <SButton class="col-span-4 h-16" variant="black">
+            <SButton class="grow-[2] w-full basis-[250px] h-16" variant="black">
               Таблица выработка, архивная
             </SButton>
           </div>
         </div>
         <div class="col-span-3">
           <ShadowButton class="h-16 w-full" @click="logout">Выход</ShadowButton>
-          <div class="mt-4 grid grid-cols-2 gap-6 items-center h-16">
+          <div class="mt-4 grid grid-cols-1 xl:grid-cols-2 gap-2 xl:gap-6 items-center xl:h-16">
             <VueClock class="mx-auto" />
             <VueDate class="mx-auto" />
           </div>
@@ -86,7 +91,7 @@
         >
       </div>
 
-      <div class="mt-10 px-20 flex flex-col gap-3">
+      <div class="mt-10 px-4 sm:px-20 flex flex-col gap-3">
         <HomeInfo
           class="text-[#F20300]"
           unity="MВт"
