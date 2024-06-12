@@ -16,7 +16,7 @@ export const useSolarInfoStore = defineStore("solar_info", {
         axios
           .get<ISolarInfoCommon>(`/get_updates/?page=${page}`)
           .then((res) => {
-            this.info = res.data?.response;
+            this.info = res?.data?.response;
             resolve(res.data);
           })
           .catch((err) => {

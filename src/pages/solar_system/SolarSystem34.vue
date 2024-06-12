@@ -11,12 +11,10 @@ import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
 import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
-import { useRoute } from "vue-router";
 import { useChartDay } from "@/store/char_day";
 import BlockLoader from "@/components/block_loader/BlockLoader.vue";
 
 const toast = useToast();
-const route = useRoute();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
@@ -170,7 +168,6 @@ const chartOptions3 = ref({
 
 const solar1 = computed(() => chartStore.solar?.solar_3);
 const solar2 = computed(() => chartStore.solar?.solar_4);
-
 const chartDaySolar1 = computed(() => chartDayStore.cords?.solar_3);
 const chartDaySolar2 = computed(() => chartDayStore.cords?.solar_4);
 
@@ -182,11 +179,11 @@ function updateDayChart() {
   series.value[0].data = dataSolarDay2;
 
   const xaxisDataSolar1 = chartDaySolar1.value?.map(
-    (solar) => formatDate(solar.created_at).hours
+    (solar) => formatDate(solar.created_at).hm
   );
 
   const xaxisDataSolar2 = chartDaySolar2.value?.map(
-    (solar) => formatDate(solar.created_at).hours
+    (solar) => formatDate(solar.created_at).hm
   );
 
   chart1.value?.updateOptions({
@@ -199,13 +196,13 @@ function updateDayChart() {
       categories: xaxisDataSolar2,
     },
   });
-  chart1.value?.render();
-  chart2.value?.render();
+  // chart1.value?.render();
+  // chart2.value?.render();
 }
 
 function updateMergeChart() {
-  const dataSolar1 = solar1.value?.map((solar) => solar.P_total);
-  const dataSolar2 = solar2.value?.map((solar) => solar.P_total);
+  const dataSolar1 = solar1.value?.reverse()?.map((solar) => solar.P_total);
+  const dataSolar2 = solar2.value?.reverse()?.map((solar) => solar.P_total);
 
   series3.value[0].data = dataSolar1;
   series3.value[1].data = dataSolar2;
@@ -219,24 +216,22 @@ function updateMergeChart() {
       categories: xaxisData,
     },
   });
-  chart?.value?.render();
+  // chart.value?.render();
 }
 
 onMounted(async () => {
   loadingInfo.value = true;
+
   try {
     await chartStore.fetchSolarChart(2);
-    infoStore.fetchSolarInfo(2).then(() => {
-      updateMergeChart();
-    });
-
-    chartDayStore.fetchSolarDay(2).then(() => {
-      updateDayChart();
-    });
+    await infoStore.fetchSolarInfo(2);
+    await chartDayStore.fetchSolarDay(2);
   } catch (err) {
     toast.error("Xatolik yuz berdi");
   } finally {
     loadingInfo.value = false;
+    updateDayChart();
+    updateMergeChart();
   }
 });
 
@@ -342,16 +337,66 @@ setInterval(() => {
                 :error="infoStore.error"
                 unity="kvW"
               />
-              <InfoText title="P1" rate="5.2" unity="kvW" />
-              <InfoText title="P2" rate="5.2" unity="kvW" />
-              <InfoText title="P3" rate="5.2" unity="kvW" />
-              <InfoText title="U1" rate="227.2" unity="V" />
-              <InfoText title="U2" rate="236.2" unity="V" />
-              <InfoText title="U3" rate="215.2" unity="V" />
-              <InfoText title="I1" rate="0.0" unity="A" />
-              <InfoText title="I2" rate="0.0" unity="A" />
-              <InfoText title="I3" rate="0.0" unity="A" />
-              <InfoText title="f" rate="49.98" unity="Hz" />
+              <InfoText
+                title="P1"
+                :rate="infoStore.info.data?.solar_3?.P_1"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="P2"
+                :rate="infoStore.info.data?.solar_3?.P_2"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="P3"
+                :rate="infoStore.info.data?.solar_3?.P_3"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="U1"
+                :rate="infoStore.info.data?.solar_3?.U_1"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="U2"
+                :rate="infoStore.info.data?.solar_3?.U_2"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="U3"
+                :rate="infoStore.info.data?.solar_3?.U_3"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="I1"
+                :rate="infoStore.info.data?.solar_3?.I_1"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="I2"
+                :rate="infoStore.info.data?.solar_3?.I_2"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="I3"
+                :rate="infoStore.info.data?.solar_3?.I_3"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="f"
+                rate="49.98"
+                :error="infoStore.error"
+                unity="Hz"
+              />
             </div>
           </div>
           <div class="mt-8" id="chart">
@@ -394,16 +439,66 @@ setInterval(() => {
                 :error="infoStore.error"
                 unity="kvW"
               />
-              <InfoText title="P1" rate="5.2" unity="kvW" />
-              <InfoText title="P2" rate="5.2" unity="kvW" />
-              <InfoText title="P3" rate="5.2" unity="kvW" />
-              <InfoText title="U1" rate="227.2" unity="V" />
-              <InfoText title="U2" rate="236.2" unity="V" />
-              <InfoText title="U3" rate="215.2" unity="V" />
-              <InfoText title="I1" rate="0.0" unity="A" />
-              <InfoText title="I2" rate="0.0" unity="A" />
-              <InfoText title="I3" rate="0.0" unity="A" />
-              <InfoText title="f" rate="49.98" unity="Hz" />
+              <InfoText
+                title="P1"
+                :rate="infoStore.info.data?.solar_4?.P_1"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="P2"
+                :rate="infoStore.info.data?.solar_4?.P_2"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="P3"
+                :rate="infoStore.info.data?.solar_4?.P_3"
+                :error="infoStore.error"
+                unity="kvW"
+              />
+              <InfoText
+                title="U1"
+                :rate="infoStore.info.data?.solar_4?.U_1"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="U2"
+                :rate="infoStore.info.data?.solar_4?.U_2"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="U3"
+                :rate="infoStore.info.data?.solar_4?.U_3"
+                :error="infoStore.error"
+                unity="V"
+              />
+              <InfoText
+                title="I1"
+                :rate="infoStore.info.data?.solar_4?.I_1"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="I2"
+                :rate="infoStore.info.data?.solar_4?.I_2"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="I3"
+                :rate="infoStore.info.data?.solar_4?.I_3"
+                :error="infoStore.error"
+                unity="A"
+              />
+              <InfoText
+                title="f"
+                rate="49.98"
+                :error="infoStore.error"
+                unity="Hz"
+              />
             </div>
           </div>
           <div class="mt-8" id="chart">
@@ -438,7 +533,7 @@ setInterval(() => {
         ></apexchart>
       </div>
     </div>
-    <BlockLoader v-if="loadingInfo" />
+    <BlockLoader :loading="loadingInfo" />
   </div>
 </template>
 

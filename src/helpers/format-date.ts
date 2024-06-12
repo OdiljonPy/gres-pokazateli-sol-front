@@ -9,6 +9,7 @@ const formatDate = (time: string) => {
 
   return {
     hours: `${hours}:${minute}:${second}`,
+    hm: `${hours}:${minute}`,
     minutes: `${minute}:${second}`,
     seconds: `${second}`,
   };

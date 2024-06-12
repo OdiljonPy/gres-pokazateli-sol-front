@@ -101,7 +101,7 @@
         />
       </div>
     </div>
-    <BlockLoader v-if="loadingInfo" />
+    <BlockLoader :loading="loadingInfo" />
   </div>
 </template>
 <script setup lang="ts">
