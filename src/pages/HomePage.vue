@@ -79,8 +79,8 @@
         </div>
       </div>
       <!--      col-4-->
-      <div class="grid grid-cols-10 mt-3 gap-3">
-        <SButton v-for="item in 10" :key="item" class="h-16" variant="black"
+      <div class="flex flex-wrap mt-3 gap-3">
+        <SButton v-for="item in 10" :key="item" class="h-16 w-full basis-[100px] grow" variant="black"
           >ТГ-{{ item }}</SButton
         >
       </div>
