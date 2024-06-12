@@ -9,7 +9,6 @@ import { useChartStore } from "@/store/solar_charts";
 import { useSolarInfoStore } from "@/store/solar_info";
 import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
-import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useChartDay } from "@/store/char_day";
 import BlockLoader from "@/components/block_loader/BlockLoader.vue";

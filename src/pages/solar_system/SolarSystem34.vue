@@ -9,7 +9,6 @@ import { useChartStore } from "@/store/solar_charts";
 import { useSolarInfoStore } from "@/store/solar_info";
 import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
-import PreLoader from "@/components/shared/pre-loader/PreLoader.vue";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useChartDay } from "@/store/char_day";
 import BlockLoader from "@/components/block_loader/BlockLoader.vue";
@@ -224,7 +223,6 @@ function updateMergeChart() {
 
 onMounted(async () => {
   loadingInfo.value = true;
-
   try {
     await chartStore.fetchSolarChart(2);
     await infoStore.fetchSolarInfo(2);
@@ -258,44 +256,41 @@ setInterval(() => {
 <template>
   <div class="my-4">
     <div class="container">
-      <div class="mb-3 grid grid-cols-2 items-center">
-        <div class="flex items-center gap-4">
+      <div class="mb-3 grid grid-cols-1 gap-4 xl:grid-cols-2 items-center">
+        <div class="flex justify-between xl:justify-start items-center gap-4">
           <RouterLink to="/">
-            <SButton variant="black" class="w-[300px]">Menu</SButton>
+            <SButton variant="black" class="w-[180px] sm:w-[300px]"
+              >Menu</SButton
+            >
           </RouterLink>
-          <p class="text-3xl text-dark">"Sirdaryo IES"</p>
+          <p class="text-3xl text-dark flex shrink-0">"Sirdaryo IES"</p>
         </div>
-        <div class="flex items-center gap-6">
+        <div class="flex justify-start xl:justify-center items-center gap-6">
           <VueClock class="!text-dark !w-[120px]" />
           <VueDate class="!text-dark" />
         </div>
       </div>
-      <div class="mb-4 border-2 border-black grid grid-cols-3 items-center">
+      <div
+        class="mb-4 md:border-2 border-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center"
+      >
         <div class="flex items-center gap-2 px-4 justify-between">
           <p class="text-lg flex items-center gap-4">
             Суммарная мощность <span class="font-semibold text-3xl">P</span>
           </p>
           <div>
-            <PreLoader
-              v-if="infoStore.error"
-              :loading="true"
-              preloader-class="!w-[100px]"
-            />
-            <div v-else>
-              <span class="text-4xl font-semibold mr-1">{{
-                infoStore.info?.data?.solar_3?.P_total +
-                infoStore.info?.data?.solar_4?.P_total
-                  ? (
-                      infoStore.info?.data?.solar_3?.P_total +
-                      infoStore.info?.data?.solar_4?.P_total
-                    ).toFixed(2)
-                  : "0.0"
-              }}</span>
-              <span class="text-xl">kvW</span>
-            </div>
+            <span class="text-4xl font-semibold mr-1">{{
+              infoStore.info?.data?.solar_3?.P_total +
+              infoStore.info?.data?.solar_4?.P_total
+                ? (
+                    infoStore.info?.data?.solar_3?.P_total +
+                    infoStore.info?.data?.solar_4?.P_total
+                  ).toFixed(2)
+                : "0.0"
+            }}</span>
+            <span class="text-xl">kvW</span>
           </div>
         </div>
-        <div class="px-4 py-3 border-x-2 border-black">
+        <div class="xl:px-4 py-3 xl:border-x-2 border-black">
           <PowerInfo
             title="Haч. суток"
             :value="infoStore.info?.total_P_today"
@@ -313,11 +308,13 @@ setInterval(() => {
           <PowerInfo title="Нач. годы" :value="infoStore.info?.total_P_year" />
         </div>
       </div>
-      <div class="flex gap-8 items-center">
-        <div class="w-full">
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div
+          class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col"
+        >
           <div class="flex gap-3">
             <div
-              class="basis-[60%] border-2 border-black p-3 grid grid-cols-2 gap-2"
+              class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
             >
               <InfoCard
                 v-for="(item, idx) in 6"
@@ -326,7 +323,7 @@ setInterval(() => {
                 :idx="idx + 1"
               />
             </div>
-            <div class="basis-[38%] flex flex-col gap-[1px]">
+            <div class="basis-[50%] md:basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
                 :rate="infoStore.info?.data?.solar_3?.P_total"
@@ -380,7 +377,7 @@ setInterval(() => {
               <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
-          <div class="mt-8" id="chart">
+          <div id="chart">
             <div class="flex items-center gap-2 ml-2">
               <span class="w-2 h-10 !bg-green-500"></span>
               <div>
@@ -410,10 +407,12 @@ setInterval(() => {
             ></apexchart>
           </div>
         </div>
-        <div class="w-full">
+        <div
+          class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col"
+        >
           <div class="flex gap-3">
             <div
-              class="basis-[60%] border-2 border-black p-3 grid grid-cols-2 gap-3"
+              class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
             >
               <InfoCard
                 v-for="(item, idx) in 6"
@@ -422,7 +421,7 @@ setInterval(() => {
                 :idx="idx + 1"
               />
             </div>
-            <div class="basis-[38%] flex flex-col gap-[1px]">
+            <div class="basis-[50%] md:basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
                 :rate="infoStore.info?.data?.solar_4?.P_total"
@@ -476,7 +475,7 @@ setInterval(() => {
               <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
-          <div class="mt-8" id="chart">
+          <div id="chart">
             <div class="flex items-center gap-2 ml-2">
               <span class="w-2 h-10 !bg-green-500"></span>
               <div>
@@ -507,7 +506,7 @@ setInterval(() => {
           </div>
         </div>
       </div>
-      <div id="chart">
+      <div class="mt-8" id="chart">
         <apexchart
           ref="chart"
           type="area"
