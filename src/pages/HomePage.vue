@@ -43,44 +43,45 @@
         </div>
       </div>
       <!--col-3-->
-      <div class="grid grid-cols-12 gap-3 mt-3">
-        <SButton class="col-span-3 h-16 w-full" variant="black">
+      <div class="flex flex-wrap xl:flex-nowrap gap-3 mt-3">
+        <SButton class="basis-[200px] grow-[2] h-16 w-full" variant="black">
           Подпитка воды
         </SButton>
-        <SButton class="col-span-3 h-16 w-full" variant="black">
+        <SButton class="basis-[200px] grow-[2] h-16 w-full" variant="black">
           Таблица текущих измерений по блокам
         </SButton>
-        <div class="col-span-6 grid grid-cols-12 gap-3">
-          <SButton variant="black" class="col-span-3 w-full h-16"
-            >Диагностика</SButton
-          >
-          <div class="col-span-3 grid gap-3 grid-cols-2">
-            <SButton
-              @click="$router.push('/solar_system1')"
-              variant="green"
-              class="h-16"
-              custom-class="!text-[12px] !px-2 !leading-4"
-              >ФЭС
-            </SButton>
-            <SButton
-              @click="$router.push('/solar_system2')"
-              variant="green"
-              class="h-16"
-              custom-class="!text-[10px] !px-1 !leading-3"
-              >ФЭС ХВО</SButton
-            >
-          </div>
-          <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Таблица измерений M3X-1</SButton
-          >
-          <SButton variant="black" class="col-span-3 h-16 w-full"
-            >Тепловая схема MSX-1</SButton
-          >
-        </div>
+
+        <SButton variant="black" class="basis-[200px] grow-[2] w-full h-16"
+          >Диагностика</SButton
+        >
+        <SButton
+          @click="$router.push('/solar_system1')"
+          variant="green"
+          class="h-16 basis-[100px]"
+          custom-class="!text-[14px] !px-2 !leading-4"
+          >ФЭС
+        </SButton>
+        <SButton
+          @click="$router.push('/solar_system2')"
+          variant="green"
+          class="h-16 basis-[100px]"
+          custom-class="!text-[14px] !px-1 !leading-3"
+          >ФЭС ХВО</SButton
+        >
+        <SButton variant="black" class="basis-[200px] grow h-16 w-full"
+          >Таблица измерений M3X-1</SButton
+        >
+        <SButton variant="black" class="basis-[200px] grow h-16 w-full"
+          >Тепловая схема MSX-1</SButton
+        >
       </div>
       <!--      col-4-->
       <div class="flex flex-wrap mt-3 gap-3">
-        <SButton v-for="item in 10" :key="item" class="h-16 w-full basis-[100px] grow" variant="black"
+        <SButton
+          v-for="item in 10"
+          :key="item"
+          class="h-16 w-full basis-[100px] grow"
+          variant="black"
           >ТГ-{{ item }}</SButton
         >
       </div>
