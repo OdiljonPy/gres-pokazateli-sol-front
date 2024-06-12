@@ -21,18 +21,17 @@ export const useLoginStore = defineStore("login", {
             password: user.password,
           })
           .then((res) => {
-            console.log(res.data, "response");
-            if (res.data.ok) {
+            if (res?.data?.ok) {
               this.isLogin = true;
-              sessionStorage.setItem("token", res.data?.result?.access_token);
+              sessionStorage.setItem("token", res?.data?.result?.access_token);
               sessionStorage.setItem(
                 "refresh_token",
-                res.data?.result?.refresh_token
+                res?.data?.result?.refresh_token
               );
               toast.success("Tizimga muvaffaqiyatli kirdingiz");
               router.push("/");
             }
-            resolve(res.data);
+            resolve(res?.data);
           })
           .catch((err) => {
             toast.error("Login yoki parol xato");

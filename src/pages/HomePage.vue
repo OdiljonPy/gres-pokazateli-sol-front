@@ -92,11 +92,11 @@
           :rate="infoStore?.info?.total_P_month"
           title="P"
         />
-        <HomeInfo class="text-[#17BB0E]" unity="%" rate="3.62" title="CH" />
+        <HomeInfo class="text-[#17BB0E]" unity="%" :rate="3.62" title="CH" />
         <HomeInfo
           class="text-[#FDFD06]"
           unity="г/кВт*ч"
-          rate="141"
+          :rate="141"
           title="УРТ"
         />
       </div>
