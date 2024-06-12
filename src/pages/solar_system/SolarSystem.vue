@@ -299,25 +299,18 @@ setInterval(() => {
           <PowerInfo
             title="Haч. суток"
             :value="infoStore.info?.total_P_today"
-            :error="infoStore.error"
           />
           <PowerInfo
             title="Пред. сутки"
             :value="infoStore.info?.total_P_yesterday"
-            :error="infoStore.error"
           />
         </div>
         <div>
           <PowerInfo
             title="Нач. месяца"
             :value="infoStore.info?.total_P_month"
-            :error="infoStore.error"
           />
-          <PowerInfo
-            title="Нач. годы"
-            :value="infoStore.info?.total_P_year"
-            :error="infoStore.error"
-          />
+          <PowerInfo title="Нач. годы" :value="infoStore.info?.total_P_year" />
         </div>
       </div>
       <div class="flex gap-8 items-center">
@@ -337,69 +330,54 @@ setInterval(() => {
               <InfoText
                 title="P"
                 :rate="infoStore.info?.data?.solar_1?.P_total"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P1"
                 :rate="infoStore.info?.data?.solar_1?.P_1"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P2"
                 :rate="infoStore.info?.data?.solar_1?.P_2"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P3"
                 :rate="infoStore.info?.data?.solar_1?.P_3"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="U1"
                 :rate="infoStore.info?.data?.solar_1?.U_1"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="U2"
                 :rate="infoStore.info?.data?.solar_1?.U_2"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="U3"
                 :rate="infoStore.info?.data?.solar_1?.U_3"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="I1"
                 :rate="infoStore.info?.data?.solar_1?.I_1"
-                :error="infoStore.error"
                 unity="A"
               />
               <InfoText
                 title="I2"
                 :rate="infoStore.info?.data?.solar_1?.I_2"
-                :error="infoStore.error"
                 unity="A"
               />
               <InfoText
                 title="I3"
                 :rate="infoStore.info?.data?.solar_1?.I_3"
-                :error="infoStore.error"
                 unity="A"
               />
-              <InfoText
-                title="f"
-                rate="49.98"
-                :error="infoStore.error"
-                unity="Hz"
-              />
+              <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
           <div class="mt-8" id="chart">
@@ -448,69 +426,54 @@ setInterval(() => {
               <InfoText
                 title="P"
                 :rate="infoStore.info?.data?.solar_2?.P_total"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P1"
                 :rate="infoStore.info?.data?.solar_2?.P_1"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P2"
                 :rate="infoStore.info?.data?.solar_2?.P_2"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="P3"
                 :rate="infoStore.info?.data?.solar_2?.P_3"
-                :error="infoStore.error"
                 unity="kvW"
               />
               <InfoText
                 title="U1"
                 :rate="infoStore.info?.data?.solar_2?.U_1"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="U2"
                 :rate="infoStore.info?.data?.solar_2?.U_2"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="U3"
                 :rate="infoStore.info?.data?.solar_2?.U_3"
-                :error="infoStore.error"
                 unity="V"
               />
               <InfoText
                 title="I1"
                 :rate="infoStore.info?.data?.solar_2?.I_1"
-                :error="infoStore.error"
                 unity="A"
               />
               <InfoText
                 title="I2"
                 :rate="infoStore.info?.data?.solar_2?.I_2"
-                :error="infoStore.error"
                 unity="A"
               />
               <InfoText
                 title="I3"
                 :rate="infoStore.info?.data?.solar_2?.I_3"
-                :error="infoStore.error"
                 unity="A"
               />
-              <InfoText
-                title="f"
-                rate="49.98"
-                :error="infoStore.error"
-                unity="Hz"
-              />
+              <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
           <div class="mt-8" id="chart">

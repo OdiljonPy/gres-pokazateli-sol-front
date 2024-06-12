@@ -27,7 +27,7 @@ const chart2 = ref();
 
 const series = ref([
   {
-    name: "Desktops",
+    name: "Солнечная Nº1",
     data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
   },
 ]);
@@ -75,7 +75,7 @@ const chartOptions = ref({
 
 const series2 = ref([
   {
-    name: "Desktops",
+    name: "Солнечная Nº2",
     data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
   },
 ]);
@@ -145,18 +145,18 @@ const chartOptions3 = ref({
   xaxis: {
     type: "string",
     categories: [
-      "2024-06-08T17:28:38.029993Z",
-      "2024-06-08T17:28:37.150767Z",
-      "2024-06-08T17:28:35.548735Z",
-      "2024-06-08T17:28:35.259309Z",
-      "2024-06-08T17:28:33.447971Z",
-      "2024-06-08T17:28:33.147468Z",
-      "2024-06-08T17:28:32.369093Z",
-      "2024-06-08T17:28:32.367031Z",
-      "2024-06-08T17:28:31.469284Z",
-      "2024-06-08T17:28:30.770053Z",
-      "2024-06-08T17:28:29.751479Z",
-      "2024-06-08T17:28:29.350668Z",
+      "17:17",
+      "20:17",
+      "02:17",
+      "05:17",
+      "07:17",
+      "09:17",
+      "11:17",
+      "13:17",
+      "14:17",
+      "15:17",
+      "14:17",
+      "12:17",
     ],
   },
   tooltip: {
@@ -186,18 +186,20 @@ function updateDayChart() {
     (solar) => formatDate(solar.created_at).hm
   );
 
-  chart1.value?.updateOptions({
-    xaxis: {
-      categories: xaxisDataSolar1,
-    },
-  });
-  chart2.value?.updateOptions({
-    xaxis: {
-      categories: xaxisDataSolar2,
-    },
-  });
-  // chart1.value?.render();
-  // chart2.value?.render();
+  if (xaxisDataSolar1?.length) {
+    chart1.value?.updateOptions({
+      xaxis: {
+        categories: xaxisDataSolar1,
+      },
+    });
+  }
+  if (xaxisDataSolar2?.length) {
+    chart2.value?.updateOptions({
+      xaxis: {
+        categories: xaxisDataSolar2,
+      },
+    });
+  }
 }
 
 function updateMergeChart() {
@@ -211,12 +213,13 @@ function updateMergeChart() {
     (solar) => formatDate(solar.crated_at).hours
   );
 
-  chart.value?.updateOptions({
-    xaxis: {
-      categories: xaxisData,
-    },
-  });
-  // chart.value?.render();
+  if (xaxisData?.length) {
+    chart.value?.updateOptions({
+      xaxis: {
+        categories: xaxisData,
+      },
+    });
+  }
 }
 
 onMounted(async () => {
@@ -280,11 +283,11 @@ setInterval(() => {
             />
             <div v-else>
               <span class="text-4xl font-semibold mr-1">{{
-                infoStore.info.data?.solar_3?.P_total +
-                infoStore.info.data?.solar_4?.P_total
+                infoStore.info?.data?.solar_3?.P_total +
+                infoStore.info?.data?.solar_4?.P_total
                   ? (
-                      infoStore.info.data?.solar_3?.P_total +
-                      infoStore.info.data?.solar_4?.P_total
+                      infoStore.info?.data?.solar_3?.P_total +
+                      infoStore.info?.data?.solar_4?.P_total
                     ).toFixed(2)
                   : "0.0"
               }}</span>
@@ -296,25 +299,18 @@ setInterval(() => {
           <PowerInfo
             title="Haч. суток"
             :value="infoStore.info?.total_P_today"
-            :error="infoStore.error"
           />
           <PowerInfo
             title="Пред. сутки"
             :value="infoStore.info?.total_P_yesterday"
-            :error="infoStore.error"
           />
         </div>
         <div>
           <PowerInfo
             title="Нач. месяца"
             :value="infoStore.info?.total_P_month"
-            :error="infoStore.error"
           />
-          <PowerInfo
-            title="Нач. годы"
-            :value="infoStore.info?.total_P_year"
-            :error="infoStore.error"
-          />
+          <PowerInfo title="Нач. годы" :value="infoStore.info?.total_P_year" />
         </div>
       </div>
       <div class="flex gap-8 items-center">
@@ -333,83 +329,77 @@ setInterval(() => {
             <div class="basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
-                :rate="infoStore.info.data?.solar_3?.P_total"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.P_total"
                 unity="kvW"
               />
               <InfoText
                 title="P1"
-                :rate="infoStore.info.data?.solar_3?.P_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.P_1"
                 unity="kvW"
               />
               <InfoText
                 title="P2"
-                :rate="infoStore.info.data?.solar_3?.P_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.P_2"
                 unity="kvW"
               />
               <InfoText
                 title="P3"
-                :rate="infoStore.info.data?.solar_3?.P_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.P_3"
                 unity="kvW"
               />
               <InfoText
                 title="U1"
-                :rate="infoStore.info.data?.solar_3?.U_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.U_1"
                 unity="V"
               />
               <InfoText
                 title="U2"
-                :rate="infoStore.info.data?.solar_3?.U_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.U_2"
                 unity="V"
               />
               <InfoText
                 title="U3"
-                :rate="infoStore.info.data?.solar_3?.U_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.U_3"
                 unity="V"
               />
               <InfoText
                 title="I1"
-                :rate="infoStore.info.data?.solar_3?.I_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.I_1"
                 unity="A"
               />
               <InfoText
                 title="I2"
-                :rate="infoStore.info.data?.solar_3?.I_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.I_2"
                 unity="A"
               />
               <InfoText
                 title="I3"
-                :rate="infoStore.info.data?.solar_3?.I_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_3?.I_3"
                 unity="A"
               />
-              <InfoText
-                title="f"
-                rate="49.98"
-                :error="infoStore.error"
-                unity="Hz"
-              />
+              <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
           <div class="mt-8" id="chart">
             <div class="flex items-center gap-2 ml-2">
-              <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
-              <p>
-                Max :
-                {{
-                  infoStore.info?.max?.solar_3?.[0]?.P_total?.toFixed(2) ||
-                  "0.0"
-                }}
-                kvW
-              </p>
+              <span class="w-2 h-10 !bg-green-500"></span>
+              <div>
+                <p>
+                  Max :
+                  {{
+                    infoStore.info?.max?.solar_3?.[0]?.P_total?.toFixed(2) ||
+                    "0.0"
+                  }}
+                  kvW
+                </p>
+                <p>
+                  Time :
+                  {{
+                    formatDate(infoStore.info?.max?.solar_3?.[0]?.crated_at)
+                      .hours
+                  }}
+                </p>
+              </div>
             </div>
             <apexchart
               type="line"
@@ -435,83 +425,77 @@ setInterval(() => {
             <div class="basis-[38%] flex flex-col gap-[1px]">
               <InfoText
                 title="P"
-                :rate="infoStore.info.data?.solar_4?.P_total"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.P_total"
                 unity="kvW"
               />
               <InfoText
                 title="P1"
-                :rate="infoStore.info.data?.solar_4?.P_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.P_1"
                 unity="kvW"
               />
               <InfoText
                 title="P2"
-                :rate="infoStore.info.data?.solar_4?.P_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.P_2"
                 unity="kvW"
               />
               <InfoText
                 title="P3"
-                :rate="infoStore.info.data?.solar_4?.P_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.P_3"
                 unity="kvW"
               />
               <InfoText
                 title="U1"
-                :rate="infoStore.info.data?.solar_4?.U_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.U_1"
                 unity="V"
               />
               <InfoText
                 title="U2"
-                :rate="infoStore.info.data?.solar_4?.U_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.U_2"
                 unity="V"
               />
               <InfoText
                 title="U3"
-                :rate="infoStore.info.data?.solar_4?.U_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.U_3"
                 unity="V"
               />
               <InfoText
                 title="I1"
-                :rate="infoStore.info.data?.solar_4?.I_1"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.I_1"
                 unity="A"
               />
               <InfoText
                 title="I2"
-                :rate="infoStore.info.data?.solar_4?.I_2"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.I_2"
                 unity="A"
               />
               <InfoText
                 title="I3"
-                :rate="infoStore.info.data?.solar_4?.I_3"
-                :error="infoStore.error"
+                :rate="infoStore.info?.data?.solar_4?.I_3"
                 unity="A"
               />
-              <InfoText
-                title="f"
-                rate="49.98"
-                :error="infoStore.error"
-                unity="Hz"
-              />
+              <InfoText title="f" :rate="49.98" unity="Hz" />
             </div>
           </div>
           <div class="mt-8" id="chart">
             <div class="flex items-center gap-2 ml-2">
-              <span class="w-3 h-3 rounded-[50%] !bg-green-500"></span>
-              <p>
-                Max :
-                {{
-                  infoStore.info?.max?.solar_4?.[0]?.P_total?.toFixed(2) ||
-                  "0.0"
-                }}
-                kvW
-              </p>
+              <span class="w-2 h-10 !bg-green-500"></span>
+              <div>
+                <p>
+                  Max :
+                  {{
+                    infoStore.info?.max?.solar_4?.[0]?.P_total?.toFixed(2) ||
+                    "0.0"
+                  }}
+                  kvW
+                </p>
+                <p>
+                  Time :
+                  {{
+                    formatDate(infoStore.info?.max?.solar_4?.[0]?.crated_at)
+                      .hours
+                  }}
+                </p>
+              </div>
             </div>
             <apexchart
               type="line"
