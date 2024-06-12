@@ -17,7 +17,7 @@ export const useSolarInfoStore = defineStore("solar_info", {
           .get<ISolarInfoCommon>(`/get_updates/?page=${page}`)
           .then((res) => {
             this.info = res?.data?.response;
-            resolve(res?.data);
+            resolve(res.data);
           })
           .catch((err) => {
             this.error = true;

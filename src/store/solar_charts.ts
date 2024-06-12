@@ -17,7 +17,7 @@ export const useChartStore = defineStore("solar_chart", {
           .get<IChartSolarCommon>(`/solar_day/?page=${page}&page_size=2`)
           .then((res) => {
             this.solar = res?.data?.response;
-            resolve(res?.data);
+            resolve(res.data);
           })
           .catch((err) => {
             this.error = true;

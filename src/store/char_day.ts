@@ -17,7 +17,7 @@ export const useChartDay = defineStore("chart_day", {
           .get<IChartDayRes>(`/get_data/?page=${page}&page_size=2`)
           .then((res) => {
             this.cords = res?.data?.result;
-            resolve(res?.data);
+            resolve(res.data);
           })
           .catch((err) => {
             this.error = true;
