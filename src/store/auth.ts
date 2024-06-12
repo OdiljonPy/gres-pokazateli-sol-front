@@ -31,7 +31,7 @@ export const useLoginStore = defineStore("login", {
               toast.success("Tizimga muvaffaqiyatli kirdingiz");
               router.push("/");
             }
-            resolve(res?.data);
+            resolve(res.data);
           })
           .catch((err) => {
             toast.error("Login yoki parol xato");
