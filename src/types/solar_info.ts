@@ -15,7 +15,7 @@ export interface ISolarMax {
   id: number;
   number_solar: number;
   P_total: number;
-  crated_at: string;
+  created_at: string;
 }
 
 export interface ISolarInfoRes {

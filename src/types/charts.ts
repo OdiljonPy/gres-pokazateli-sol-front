@@ -1,6 +1,6 @@
 export interface IChartSolar {
   P_total: number;
-  crated_at: string;
+  created_at: string;
   id: number;
   number_solar: number;
 }

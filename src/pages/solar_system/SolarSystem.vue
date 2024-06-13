@@ -209,7 +209,7 @@ function updateMergeChart() {
   series3.value[1].data = dataSolar2;
 
   const xaxisData = solar1.value?.map(
-    (solar) => formatDate(solar.crated_at).hours
+    (solar) => formatDate(solar.created_at).hours
   );
 
   if (xaxisData?.length) {
@@ -244,7 +244,7 @@ setInterval(() => {
       updateMergeChart();
     });
   }
-}, 5000);
+}, 2 * 5000);
 
 setInterval(() => {
   chartDayStore.fetchSolarDay(1).then(() => {
@@ -309,7 +309,9 @@ setInterval(() => {
         </div>
       </div>
       <div class="flex flex-col md:flex-row gap-8 items-center">
-        <div class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col">
+        <div
+          class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col"
+        >
           <div class="flex gap-3">
             <div
               class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
@@ -390,7 +392,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_1?.[0]?.crated_at)
+                    formatDate(infoStore.info?.max?.solar_1?.[0]?.created_at)
                       .hours
                   }}
                 </p>
@@ -405,7 +407,9 @@ setInterval(() => {
             ></apexchart>
           </div>
         </div>
-        <div class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col">
+        <div
+          class="mt-4 md:mt-0 w-full flex gap-8 flex-col-reverse md:flex-col"
+        >
           <div class="flex gap-3">
             <div
               class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
@@ -486,7 +490,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_2?.[0]?.crated_at)
+                    formatDate(infoStore.info?.max?.solar_2?.[0]?.created_at)
                       .hours
                   }}
                 </p>

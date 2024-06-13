@@ -209,7 +209,7 @@ function updateMergeChart() {
   series3.value[1].data = dataSolar2;
 
   const xaxisData = solar1.value?.map(
-    (solar) => formatDate(solar.crated_at).hours
+    (solar) => formatDate(solar.created_at).hours
   );
 
   if (xaxisData?.length) {
@@ -244,7 +244,7 @@ setInterval(() => {
       updateMergeChart();
     });
   }
-}, 5000);
+}, 2 * 5000);
 
 setInterval(() => {
   chartDayStore.fetchSolarDay(2).then(() => {
@@ -392,7 +392,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_3?.[0]?.crated_at)
+                    formatDate(infoStore.info?.max?.solar_3?.[0]?.created_at)
                       .hours
                   }}
                 </p>
@@ -490,7 +490,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_4?.[0]?.crated_at)
+                    formatDate(infoStore.info?.max?.solar_4?.[0]?.created_at)
                       .hours
                   }}
                 </p>
