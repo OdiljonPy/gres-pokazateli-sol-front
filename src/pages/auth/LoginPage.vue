@@ -1,17 +1,17 @@
 <template>
   <div class="flex justify-center items-center h-screen bg-gray-200 px-6">
     <div class="bg-[#F7F7F7] px-6 py-5 rounded-[6px] text-lg w-[400px]">
-      <p class="text-center font-medium text-2xl">Log in</p>
+      <p class="text-center font-medium text-2xl">Логин</p>
       <form class="mt-1">
         <div class="mb-4">
           <label
             for="phone"
             class="mb-2 text-base font-medium transition duration-300"
             :class="v$.login.$error ? 'text-[red]' : ''"
-            >Login</label
+            >Логин</label
           >
           <SInput
-            placeholder="Login"
+            placeholder="Логин"
             type="phone"
             v-model="state.login"
             :error="v$.login.$error"
@@ -26,10 +26,10 @@
             for="password"
             class="mb-2 font-medium transition duration-300 text-base"
             :class="v$.password.$error ? 'text-[red]' : ''"
-            >Parol</label
+            >Пароль</label
           >
           <SInput
-            placeholder="Parol"
+            placeholder="Пароль"
             v-model="state.password"
             :error="v$.password.$error"
             type="password"
@@ -43,7 +43,7 @@
           class="w-full !rounded-0 mt-5"
           @click.prevent="formLoginData"
           :loading="loginStore.loading"
-          >Kirish</SButton
+          >Войти </SButton
         >
       </form>
     </div>
