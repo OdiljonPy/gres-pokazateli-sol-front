@@ -221,12 +221,18 @@ function updateMergeChart() {
   }
 }
 
+const panelsNumber1 = ref(6);
+const panelsNumber2 = ref(6);
+
 onMounted(async () => {
   loadingInfo.value = true;
   try {
     await chartStore.fetchSolarChart(2);
     await infoStore.fetchSolarInfo(2);
     await chartDayStore.fetchSolarDay(2);
+
+    panelsNumber1.value = infoStore.info?.data?.solar_3?.count;
+    panelsNumber2.value = infoStore.info?.data?.solar_4?.count;
   } catch (err) {
     toast.error("Xatolik yuz berdi");
   } finally {
@@ -317,7 +323,7 @@ setInterval(() => {
               class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
             >
               <InfoCard
-                v-for="(item, idx) in 6"
+                v-for="(item, idx) in panelsNumber1"
                 :key="item"
                 title=""
                 :idx="idx + 1"
@@ -374,7 +380,7 @@ setInterval(() => {
                 :rate="infoStore.info?.data?.solar_3?.I_3"
                 unity="A"
               />
-              <InfoText title="f" :rate="49.98" unity="Hz" />
+              <InfoText title="f" :rate="infoStore.info?.data?.solar_3?.f" unity="Hz" />
             </div>
           </div>
           <div id="chart">
@@ -415,7 +421,7 @@ setInterval(() => {
               class="basis-[48%] md:basis-[60%] border-2 border-black p-1 md:p-3 grid grid-cols-2 gap-1 md:gap-2"
             >
               <InfoCard
-                v-for="(item, idx) in 6"
+                v-for="(item, idx) in panelsNumber2"
                 :key="item"
                 title=""
                 :idx="idx + 1"
@@ -472,7 +478,7 @@ setInterval(() => {
                 :rate="infoStore.info?.data?.solar_4?.I_3"
                 unity="A"
               />
-              <InfoText title="f" :rate="49.98" unity="Hz" />
+              <InfoText title="f" :rate="infoStore.info?.data?.solar_4?.f" unity="Hz" />
             </div>
           </div>
           <div id="chart">

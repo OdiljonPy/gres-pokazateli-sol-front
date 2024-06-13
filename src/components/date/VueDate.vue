@@ -1,12 +1,15 @@
 <script setup lang="ts">
-const date = new Date();
-const month = date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth();
-const day = date.getDay() < 10 ? `0${date.getDay()}` : date.getDay();
+const month =
+  new Date().getMonth() + 1 < 10
+    ? `0${new Date().getMonth() + 1}`
+    : new Date().getMonth() + 1;
+const day =
+  new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate();
 </script>
 
 <template>
   <div class="text-white text-xl">
-    {{ day }}.{{ month }}.{{ date.getFullYear() }}
+    {{ day }}.{{ month }}.{{ new Date().getFullYear() }}
   </div>
 </template>
 

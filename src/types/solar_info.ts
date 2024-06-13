@@ -9,6 +9,8 @@ export interface ISolarInfo {
   I_1: number;
   I_2: number;
   I_3: number;
+  count: number;
+  f: number;
 }
 
 export interface ISolarMax {
