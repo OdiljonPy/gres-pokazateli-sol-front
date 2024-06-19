@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+} from "vue-router";
+
 import HomeLayout from "@/layout/home-layout/HomeLayout.vue";
 import AuthLayout from "@/layout/auth-layout/AuthLayout.vue";
 
@@ -34,7 +39,7 @@ const routes = [
   },
 ];
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
 
   scrollBehavior() {
     return { top: 0 };
