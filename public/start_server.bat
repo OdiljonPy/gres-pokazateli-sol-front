@@ -1,9 +1,4 @@
 @echo off
-setlocal
-
-start "" serve -s dist -l 5000
-
-TIMEOUT /T 3
-start "" http://localhost:5000
-
-endlocal
+cd /d "file:///D:/Projects/Zero%20DEV/GRES_Vue/gres_dev_vue/dist/"
+http-server -a  192.168.10.34 -p 8080 -o
+pause
