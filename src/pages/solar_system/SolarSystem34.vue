@@ -279,21 +279,40 @@ setInterval(() => {
       <div
         class="mb-4 md:border-2 border-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center"
       >
-        <div class="flex items-center gap-2 px-4 justify-between">
-          <p class="text-lg flex items-center gap-4">
-            Суммарная мощность <span class="font-semibold text-3xl">P</span>
-          </p>
-          <div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2 px-4 justify-between">
+            <p class="text-lg flex items-center gap-4">
+              Суммарная мощность
+            </p>
+            <div>
             <span class="text-4xl font-semibold mr-1">{{
-              infoStore.info?.data?.solar_3?.P_total +
-              infoStore.info?.data?.solar_4?.P_total
-                ? (
-                    infoStore.info?.data?.solar_3?.P_total +
-                    infoStore.info?.data?.solar_4?.P_total
-                  ).toFixed(2)
-                : "0.0"
-            }}</span>
-            <span class="text-xl">kvW</span>
+                infoStore.info?.data?.solar_3?.P_total +
+                infoStore.info?.data?.solar_4?.P_total
+                    ? (
+                        infoStore.info?.data?.solar_3?.P_total +
+                        infoStore.info?.data?.solar_4?.P_total
+                    ).toFixed(2)
+                    : "0.0"
+              }}</span>
+              <span class="text-xl">kvW</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 px-4 justify-between">
+            <p class="text-lg flex items-center gap-4">
+              Суммарная мощность
+            </p>
+            <div>
+            <span class="text-4xl font-semibold mr-1">{{
+                infoStore.info?.data?.solar_3?.P_total +
+                infoStore.info?.data?.solar_4?.P_total
+                    ? (
+                        infoStore.info?.data?.solar_3?.P_total +
+                        infoStore.info?.data?.solar_4?.P_total
+                    ).toFixed(2)
+                    : "0.0"
+              }}</span>
+              <span class="text-xl">kvW</span>
+            </div>
           </div>
         </div>
         <div class="xl:px-4 py-3 xl:border-x-2 border-black">
@@ -305,13 +324,15 @@ setInterval(() => {
             title="Пред. сутки"
             :value="infoStore.info?.total_P_yesterday"
           />
-        </div>
-        <div>
           <PowerInfo
             title="Нач. месяца"
             :value="infoStore.info?.total_P_month"
           />
-          <PowerInfo title="Нач. годы" :value="infoStore.info?.total_P_year" />
+        </div>
+        <div>
+          <PowerInfo title="2022. годы" :value="infoStore.info?.total_P_year" />
+          <PowerInfo title="2023. годы" :value="infoStore.info?.total_P_year" />
+          <PowerInfo title="2024. годы" :value="infoStore.info?.total_P_year" />
         </div>
       </div>
       <div class="flex flex-col md:flex-row gap-8 items-center">
@@ -380,7 +401,11 @@ setInterval(() => {
                 :rate="infoStore.info?.data?.solar_3?.I_3"
                 unity="A"
               />
-              <InfoText title="f" :rate="infoStore.info?.data?.solar_3?.f" unity="Hz" />
+              <InfoText
+                title="f"
+                :rate="infoStore.info?.data?.solar_3?.f"
+                unity="Hz"
+              />
             </div>
           </div>
           <div id="chart">
@@ -478,7 +503,11 @@ setInterval(() => {
                 :rate="infoStore.info?.data?.solar_4?.I_3"
                 unity="A"
               />
-              <InfoText title="f" :rate="infoStore.info?.data?.solar_4?.f" unity="Hz" />
+              <InfoText
+                title="f"
+                :rate="infoStore.info?.data?.solar_4?.f"
+                unity="Hz"
+              />
             </div>
           </div>
           <div id="chart">
