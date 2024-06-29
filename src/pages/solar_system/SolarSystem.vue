@@ -177,8 +177,12 @@ const chartDaySolar1 = computed(() => chartDayStore.cords?.solar_1);
 const chartDaySolar2 = computed(() => chartDayStore.cords?.solar_2);
 
 function updateDayChart() {
-  const dataSolarDay1 = chartDaySolar1.value?.map((solar) => solar.value);
-  const dataSolarDay2 = chartDaySolar2.value?.map((solar) => solar.value);
+  const dataSolarDay1 = chartDaySolar1.value?.map((solar) =>
+    Number(solar.value.toFixed(2))
+  );
+  const dataSolarDay2 = chartDaySolar2.value?.map(
+    (solar) => +solar.value.toFixed(2)
+  );
 
   series2.value[0].data = dataSolarDay1;
   series.value[0].data = dataSolarDay2;
@@ -518,16 +522,14 @@ setInterval(() => {
                 <p>
                   Max :
                   {{
-                    infoStore.info?.max?.solar_2?.[0]?.P_total?.toFixed(2) ||
-                    "0.0"
+                    infoStore.info?.max?.solar_2?.P_total?.toFixed(2) || "0.0"
                   }}
                   kvW
                 </p>
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_2?.[0]?.created_at)
-                      .hours
+                    formatDate(infoStore.info?.max?.solar_2?.created_at).hours
                   }}
                 </p>
               </div>
