@@ -26,7 +26,7 @@ $axios.interceptors.response.use(
     if (error?.request?.status === 401) {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refresh_token");
-      router.push("/login");
+      await router.push("/login");
     }
   }
 );

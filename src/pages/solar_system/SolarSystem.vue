@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
+import { useToast } from "vue-toastification";
+
+import { useYearsStore } from "@/store/get_years";
+import { useChartDay } from "@/store/char_day";
+import { useChartStore } from "@/store/solar_charts";
+import { useSolarInfoStore } from "@/store/solar_info";
+
+import formatDate from "@/helpers/format-date";
+
 import InfoText from "@/components/pages/solar_system/InfoText.vue";
 import InfoCard from "@/components/pages/solar_system/InfoCard.vue";
 import SButton from "@/components/shared/button/SButton.vue";
 import VueClock from "@/components/clock/VueClock.vue";
 import VueDate from "@/components/date/VueDate.vue";
-import { useChartStore } from "@/store/solar_charts";
-import { useSolarInfoStore } from "@/store/solar_info";
-import formatDate from "@/helpers/format-date";
-import { useToast } from "vue-toastification";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
-import { useChartDay } from "@/store/char_day";
 import BlockLoader from "@/components/block_loader/BlockLoader.vue";
 
 const toast = useToast();
@@ -18,6 +22,8 @@ const toast = useToast();
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
 const chartDayStore = useChartDay();
+const getYearsStore = useYearsStore();
+
 const loadingInfo = ref(false);
 
 const chart = ref();
@@ -230,6 +236,7 @@ onMounted(async () => {
     await chartStore.fetchSolarChart(1);
     await infoStore.fetchSolarInfo(1);
     await chartDayStore.fetchSolarDay(1);
+    await getYearsStore.fetchGetYears(1);
 
     panelsNumber1.value = infoStore.info?.data?.solar_1?.count;
     panelsNumber2.value = infoStore.info?.data?.solar_2?.count;
@@ -302,13 +309,7 @@ setInterval(() => {
             </p>
             <div>
               <span class="text-4xl font-semibold mr-1">{{
-                infoStore.info?.data?.solar_1?.P_total +
-                infoStore.info?.data?.solar_2?.P_total
-                  ? (
-                      infoStore.info?.data?.solar_1?.P_total +
-                      infoStore.info?.data?.solar_2?.P_total
-                    ).toFixed(2)
-                  : "0.0"
+                getYearsStore.sumAllYears.toFixed(2)
               }}</span>
               <span class="text-xl">kvW</span>
             </div>
@@ -329,9 +330,12 @@ setInterval(() => {
           />
         </div>
         <div>
-          <PowerInfo title="2022. годы" :value="infoStore.info?.total_P_year" />
-          <PowerInfo title="2023. годы" :value="infoStore.info?.total_P_year" />
-          <PowerInfo title="2024. годы" :value="infoStore.info?.total_P_year" />
+          <PowerInfo
+            v-for="(item, idx) in getYearsStore.years"
+            :key="idx"
+            :title="`${item?.year}. годы`"
+            :value="item?.value"
+          />
         </div>
       </div>
       <div class="flex flex-col md:flex-row gap-8 items-center">
