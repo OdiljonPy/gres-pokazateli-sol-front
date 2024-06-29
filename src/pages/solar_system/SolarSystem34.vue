@@ -12,12 +12,15 @@ import { useToast } from "vue-toastification";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useChartDay } from "@/store/char_day";
 import BlockLoader from "@/components/block_loader/BlockLoader.vue";
+import { useYearsStore } from "@/store/get_years";
 
 const toast = useToast();
 
 const chartStore = useChartStore();
 const infoStore = useSolarInfoStore();
 const chartDayStore = useChartDay();
+const getYearsStore = useYearsStore();
+
 const loadingInfo = ref(false);
 
 const chart = ref();
@@ -230,6 +233,7 @@ onMounted(async () => {
     await chartStore.fetchSolarChart(2);
     await infoStore.fetchSolarInfo(2);
     await chartDayStore.fetchSolarDay(2);
+    await getYearsStore.fetchGetYears(2);
 
     panelsNumber1.value = infoStore.info?.data?.solar_3?.count;
     panelsNumber2.value = infoStore.info?.data?.solar_4?.count;
@@ -281,35 +285,25 @@ setInterval(() => {
       >
         <div class="flex flex-col">
           <div class="flex items-center gap-2 px-4 justify-between">
-            <p class="text-lg flex items-center gap-4">
-              Суммарная мощность
-            </p>
+            <p class="text-lg flex items-center gap-4">Суммарная мощность</p>
             <div>
-            <span class="text-4xl font-semibold mr-1">{{
+              <span class="text-4xl font-semibold mr-1">{{
                 infoStore.info?.data?.solar_3?.P_total +
                 infoStore.info?.data?.solar_4?.P_total
-                    ? (
-                        infoStore.info?.data?.solar_3?.P_total +
-                        infoStore.info?.data?.solar_4?.P_total
+                  ? (
+                      infoStore.info?.data?.solar_3?.P_total +
+                      infoStore.info?.data?.solar_4?.P_total
                     ).toFixed(2)
-                    : "0.0"
+                  : "0.0"
               }}</span>
               <span class="text-xl">kvW</span>
             </div>
           </div>
           <div class="flex items-center gap-2 px-4 justify-between">
-            <p class="text-lg flex items-center gap-4">
-              Суммарная мощность
-            </p>
+            <p class="text-lg flex items-center gap-4">Суммарная мощность</p>
             <div>
-            <span class="text-4xl font-semibold mr-1">{{
-                infoStore.info?.data?.solar_3?.P_total +
-                infoStore.info?.data?.solar_4?.P_total
-                    ? (
-                        infoStore.info?.data?.solar_3?.P_total +
-                        infoStore.info?.data?.solar_4?.P_total
-                    ).toFixed(2)
-                    : "0.0"
+              <span class="text-4xl font-semibold mr-1">{{
+                getYearsStore.sumAllYears?.toFixed(2)
               }}</span>
               <span class="text-xl">kvW</span>
             </div>
@@ -330,9 +324,12 @@ setInterval(() => {
           />
         </div>
         <div>
-          <PowerInfo title="2022. годы" :value="infoStore.info?.total_P_year" />
-          <PowerInfo title="2023. годы" :value="infoStore.info?.total_P_year" />
-          <PowerInfo title="2024. годы" :value="infoStore.info?.total_P_year" />
+          <PowerInfo
+            v-for="(item, idx) in getYearsStore.years"
+            :key="idx"
+            :title="`${item?.year}. годы`"
+            :value="item?.value"
+          />
         </div>
       </div>
       <div class="flex flex-col md:flex-row gap-8 items-center">

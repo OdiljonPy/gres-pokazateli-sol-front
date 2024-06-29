@@ -12,7 +12,7 @@ defineProps<Props>();
   <div class="flex items-center gap-3 font-medium">
     <p class="text-3xl">{{ title }}:</p>
     <p class="text-5xl font-semibold mr-2 ml-1">
-      {{ rate ? rate : "0.0" }}
+      {{ rate ? rate.toFixed(2) : "0.0" }}
     </p>
     <p class="text-3xl">{{ unity }}</p>
   </div>
