@@ -28,10 +28,10 @@ export interface ISolarInfoRes {
     solar_4: ISolarInfo;
   };
   max: {
-    solar_1: ISolarMax[];
-    solar_2: ISolarMax[];
-    solar_3: ISolarMax[];
-    solar_4: ISolarMax[];
+    solar_1: ISolarMax;
+    solar_2: ISolarMax;
+    solar_3: ISolarMax;
+    solar_4: ISolarMax;
   };
   total_P_month: number;
   total_P_year: number;

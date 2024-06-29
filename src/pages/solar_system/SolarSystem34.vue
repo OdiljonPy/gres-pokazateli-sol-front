@@ -412,16 +412,14 @@ setInterval(() => {
                 <p>
                   Max :
                   {{
-                    infoStore.info?.max?.solar_3?.[0]?.P_total?.toFixed(2) ||
-                    "0.0"
+                    infoStore.info?.max?.solar_3?.P_total?.toFixed(2) || "0.0"
                   }}
                   kvW
                 </p>
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_3?.[0]?.created_at)
-                      .hours
+                    formatDate(infoStore.info?.max?.solar_3?.created_at).hours
                   }}
                 </p>
               </div>
