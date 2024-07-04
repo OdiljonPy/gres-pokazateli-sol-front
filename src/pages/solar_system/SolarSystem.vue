@@ -280,7 +280,7 @@ setInterval(() => {
               >Menu</SButton
             >
           </RouterLink>
-          <p class="text-3xl text-dark flex shrink-0">"Sirdaryo IES"</p>
+          <p class="text-3xl text-dark flex shrink-0">"Sirdaryo IES" ФЭС ХВО</p>
         </div>
         <div class="flex justify-start xl:justify-center items-center gap-6">
           <VueClock class="!text-dark !w-[120px]" />
@@ -313,7 +313,9 @@ setInterval(() => {
             </p>
             <div>
               <span class="text-4xl font-semibold mr-1">{{
-                getYearsStore.sumAllYears.toFixed(2)
+                (
+                  getYearsStore.sumAllYears + infoStore.info?.total_P_year
+                ).toFixed(2)
               }}</span>
               <span class="text-xl">kvW</span>
             </div>
@@ -332,6 +334,7 @@ setInterval(() => {
             title="Нач. месяца"
             :value="infoStore.info?.total_P_month"
           />
+          <PowerInfo title="Нач. год" :value="infoStore.info?.total_P_year" />
         </div>
         <div>
           <PowerInfo

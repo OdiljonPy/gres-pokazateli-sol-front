@@ -64,7 +64,7 @@
           variant="green"
           class="h-16 basis-[100px]"
           custom-class="!text-[14px] !px-2 !leading-4"
-          >ФЭС
+          >ФЭС ДOУ
         </SButton>
         <SButton
           @click="$router.push('/solar_system2')"

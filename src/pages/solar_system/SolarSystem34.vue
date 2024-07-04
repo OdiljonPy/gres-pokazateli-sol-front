@@ -174,8 +174,12 @@ const chartDaySolar1 = computed(() => chartDayStore.cords?.solar_3);
 const chartDaySolar2 = computed(() => chartDayStore.cords?.solar_4);
 
 function updateDayChart() {
-  const dataSolarDay1 = chartDaySolar1.value?.map((solar) => +solar.value.toFixed(2));
-  const dataSolarDay2 = chartDaySolar2.value?.map((solar) => +solar.value.toFixed(2));
+  const dataSolarDay1 = chartDaySolar1.value?.map(
+    (solar) => +solar.value.toFixed(2)
+  );
+  const dataSolarDay2 = chartDaySolar2.value?.map(
+    (solar) => +solar.value.toFixed(2)
+  );
 
   series2.value[0].data = dataSolarDay1;
   series.value[0].data = dataSolarDay2;
@@ -273,7 +277,7 @@ setInterval(() => {
               >Menu</SButton
             >
           </RouterLink>
-          <p class="text-3xl text-dark flex shrink-0">"Sirdaryo IES"</p>
+          <p class="text-3xl text-dark flex shrink-0">"Sirdaryo IES" ФЭС ДOУ</p>
         </div>
         <div class="flex justify-start xl:justify-center items-center gap-6">
           <VueClock class="!text-dark !w-[120px]" />
@@ -303,7 +307,9 @@ setInterval(() => {
             <p class="text-lg flex items-center gap-4">Суммарная мощность</p>
             <div>
               <span class="text-4xl font-semibold mr-1">{{
-                getYearsStore.sumAllYears?.toFixed(2)
+                (
+                  getYearsStore.sumAllYears + infoStore.info?.total_P_year
+                )?.toFixed(2)
               }}</span>
               <span class="text-xl">kvW</span>
             </div>
@@ -322,6 +328,7 @@ setInterval(() => {
             title="Нач. месяца"
             :value="infoStore.info?.total_P_month"
           />
+          <PowerInfo title="Нач. год" :value="infoStore.info?.total_P_year" />
         </div>
         <div>
           <PowerInfo
@@ -512,16 +519,14 @@ setInterval(() => {
                 <p>
                   Max :
                   {{
-                    infoStore.info?.max?.solar_4?.P_total?.toFixed(2) ||
-                    "0.0"
+                    infoStore.info?.max?.solar_4?.P_total?.toFixed(2) || "0.0"
                   }}
                   kvW
                 </p>
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_4?.created_at)
-                      .hours
+                    formatDate(infoStore.info?.max?.solar_4?.created_at).hours
                   }}
                 </p>
               </div>
