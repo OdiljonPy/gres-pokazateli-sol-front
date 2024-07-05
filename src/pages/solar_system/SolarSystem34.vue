@@ -7,7 +7,6 @@ import VueClock from "@/components/clock/VueClock.vue";
 import VueDate from "@/components/date/VueDate.vue";
 import { useChartStore } from "@/store/solar_charts";
 import { useSolarInfoStore } from "@/store/solar_info";
-import formatDate from "@/helpers/format-date";
 import { useToast } from "vue-toastification";
 import PowerInfo from "@/components/pages/solar_system/PowerInfo.vue";
 import { useChartDay } from "@/store/char_day";
@@ -185,11 +184,11 @@ function updateDayChart() {
   series.value[0].data = dataSolarDay2;
 
   const xaxisDataSolar1 = chartDaySolar1.value?.map(
-    (solar) => formatDate(solar.created_at).hm
+    (solar) => solar.created_at
   );
 
   const xaxisDataSolar2 = chartDaySolar2.value?.map(
-    (solar) => formatDate(solar.created_at).hm
+    (solar) => solar.created_at
   );
 
   if (xaxisDataSolar1?.length) {
@@ -216,7 +215,7 @@ function updateMergeChart() {
   series3.value[1].data = dataSolar2;
 
   const xaxisData = solar1.value?.map(
-    (solar) => formatDate(solar.created_at).hours
+    (solar) => solar.created_at
   );
 
   if (xaxisData?.length) {
@@ -426,7 +425,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_3?.created_at).hours
+                    infoStore.info?.max?.solar_3?.created_at
                   }}
                 </p>
               </div>
@@ -526,7 +525,7 @@ setInterval(() => {
                 <p>
                   Time :
                   {{
-                    formatDate(infoStore.info?.max?.solar_4?.created_at).hours
+                    infoStore.info?.max?.solar_4?.created_at
                   }}
                 </p>
               </div>
