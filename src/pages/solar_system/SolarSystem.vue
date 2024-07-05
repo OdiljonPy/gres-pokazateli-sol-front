@@ -422,14 +422,14 @@ setInterval(() => {
               <span class="w-2 h-10 !bg-green-500"></span>
               <div>
                 <p>
-                  Max :
+                  Макс :
                   {{
                     infoStore.info?.max?.solar_1?.P_total?.toFixed(2) || "0.0"
                   }}
                   kvW
                 </p>
                 <p>
-                  Time :
+                  Время :
                   {{
                   infoStore.info?.max?.solar_1?.created_at
                   }}
@@ -522,14 +522,14 @@ setInterval(() => {
               <span class="w-2 h-10 !bg-green-500"></span>
               <div>
                 <p>
-                  Max :
+                  Макс :
                   {{
                     infoStore.info?.max?.solar_2?.P_total?.toFixed(2) || "0.0"
                   }}
                   kvW
                 </p>
                 <p>
-                  Time :
+                  Время :
                   {{
                     infoStore.info?.max?.solar_2?.created_at
                   }}
